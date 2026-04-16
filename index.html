@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" id="html-root">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +32,13 @@
     input, select, textarea, button { font-family: inherit; }
     ::selection { background: var(--red); color: var(--white); }
 
+    /* ══ LANGUAGE SHOW/HIDE ══
+       .jp-show: visible by default, hidden in EN mode
+       .en-show: hidden by default, visible in EN mode            */
+    .en-show { display: none !important; }
+    body.en-mode .jp-show { display: none !important; }
+    body.en-mode .en-show { display: revert !important; }
+
     /* ══ LOADER ══ */
     #loader {
       position: fixed; inset: 0; z-index: 9999;
@@ -42,8 +49,7 @@
     }
     #loader.out { clip-path: inset(0% 0% 100% 0%); pointer-events: none; }
     .loader-card {
-      background: var(--white);
-      padding: 28px 48px;
+      background: var(--white); padding: 28px 48px;
       display: flex; flex-direction: column; align-items: center; gap: 16px;
     }
     .loader-card img { height: 44px; width: auto; }
@@ -67,13 +73,11 @@
       height: 68px; display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo img { height: 34px; width: auto; }
-    .nav-right { display: flex; align-items: center; gap: 32px; }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
     .nav-links { display: flex; align-items: center; gap: 24px; }
     .nav-links a {
-      font-family: var(--jp);
-      font-weight: 500; font-size: 13px; letter-spacing: 0.04em;
-      color: rgba(255,255,255,0.75);
-      transition: color 0.2s; position: relative;
+      font-family: var(--jp); font-weight: 500; font-size: 13px; letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.75); transition: color 0.2s; position: relative;
     }
     #nav.light .nav-links a { color: var(--mid); }
     .nav-links a:hover { color: var(--white); }
@@ -87,85 +91,99 @@
     .nav-cta {
       font-weight: 700; font-size: 12px; letter-spacing: 0.06em;
       color: var(--white); border: 1.5px solid rgba(255,255,255,0.5);
-      padding: 8px 18px; border-radius: 2px; transition: all 0.22s;
+      padding: 8px 16px; border-radius: 2px; transition: all 0.22s;
     }
     #nav.light .nav-cta { color: var(--red); border-color: var(--red); }
     .nav-cta:hover { background: var(--white); color: var(--ink); border-color: var(--white); }
     #nav.light .nav-cta:hover { background: var(--red); color: var(--white); border-color: var(--red); }
 
+    /* Language toggle */
+    .lang-toggle {
+      display: flex; align-items: center; gap: 0;
+      background: none; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 3px; padding: 0; cursor: pointer;
+      transition: border-color 0.2s; overflow: hidden;
+    }
+    #nav.light .lang-toggle { border-color: rgba(8,8,8,0.15); }
+    .lang-toggle:hover { border-color: rgba(255,255,255,0.5); }
+    #nav.light .lang-toggle:hover { border-color: var(--red); }
+    .lt-opt {
+      font-family: var(--en); font-weight: 700; font-size: 11px;
+      letter-spacing: 0.1em; padding: 6px 10px;
+      color: rgba(255,255,255,0.35); transition: all 0.2s;
+      border: none; background: none; cursor: pointer;
+    }
+    .lt-div {
+      width: 1px; height: 14px; background: rgba(255,255,255,0.15);
+      flex-shrink: 0; transition: background 0.2s;
+    }
+    #nav.light .lt-div { background: rgba(8,8,8,0.12); }
+    #nav.light .lt-opt { color: var(--gray); }
+    /* Active state — JP active by default */
+    .lt-opt[data-lang="jp"] { color: var(--white); background: rgba(255,255,255,0.12); }
+    #nav.light .lt-opt[data-lang="jp"] { color: var(--ink); background: rgba(8,8,8,0.06); }
+    /* EN active state */
+    body.en-mode .lt-opt[data-lang="jp"] { color: rgba(255,255,255,0.35); background: none; }
+    body.en-mode .lt-opt[data-lang="en"] { color: var(--white); background: rgba(255,255,255,0.12); }
+    body.en-mode #nav.light .lt-opt[data-lang="jp"] { color: var(--gray); background: none; }
+    body.en-mode #nav.light .lt-opt[data-lang="en"] { color: var(--ink); background: rgba(8,8,8,0.06); }
+
     /* ══ HERO ══ */
     .hero {
       position: relative; min-height: 100vh;
-      display: flex; flex-direction: column;
-      overflow: hidden;
+      display: flex; flex-direction: column; overflow: hidden;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: var(--ink);
-    }
-    .hero-bg img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
-      opacity: 0.55;
-    }
-    /* gradient: darker at bottom-left where text is */
+    .hero-bg { position: absolute; inset: 0; background: var(--ink); }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.55; }
     .hero-bg::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(
-        120deg,
-        rgba(8,8,8,0.80) 0%,
-        rgba(8,8,8,0.50) 50%,
-        rgba(8,8,8,0.25) 100%
-      );
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(120deg, rgba(8,8,8,0.80) 0%, rgba(8,8,8,0.50) 50%, rgba(8,8,8,0.25) 100%);
     }
     .hero-inner {
-      position: relative; z-index: 2;
-      flex: 1;
+      position: relative; z-index: 2; flex: 1;
       max-width: 1440px; margin: 0 auto; padding: 0 40px;
       display: flex; align-items: flex-end;
-      padding-top: 68px;
-      padding-bottom: 80px;
-      width: 100%;
+      padding-top: 68px; padding-bottom: 80px; width: 100%;
     }
     .hero-content { max-width: 760px; }
-    .hero-meta {
-      display: flex; align-items: center; gap: 16px;
-      margin-bottom: 28px;
-    }
-    .h-tag { font-family: var(--en); font-weight: 700; font-size: 9.5px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red); }
+    .hero-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+    .h-tag  { font-family: var(--en); font-weight: 700; font-size: 9.5px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red); }
     .h-line { width: 28px; height: 1px; background: rgba(255,255,255,0.3); }
     .h-sub  { font-family: var(--en); font-weight: 500; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
 
+    /* Hero headline — JP primary */
     .hero-h1 {
-      font-family: var(--jp);
-      font-weight: 900;
+      font-family: var(--jp); font-weight: 900;
       font-size: clamp(3.2rem, 8vw, 8rem);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--white);
-      margin-bottom: 12px;
-      font-feature-settings: "palt";
+      line-height: 1.05; letter-spacing: -0.02em; color: var(--white);
+      margin-bottom: 12px; font-feature-settings: "palt";
+      transition: font-size 0.3s, color 0.3s;
     }
-    .hero-en {
-      font-family: var(--en);
-      font-weight: 300;
+    .hero-en-head {
+      font-family: var(--en); font-weight: 300;
       font-size: clamp(0.85rem, 1.8vw, 1.3rem);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 36px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 36px;
+      transition: font-size 0.3s, color 0.3s;
     }
-    .hero-body {
-      font-family: var(--jp); font-weight: 400;
-      font-size: 15.5px; line-height: 1.9;
-      color: rgba(255,255,255,0.72);
-      max-width: 520px; margin-bottom: 8px;
+    /* EN mode: swap hero headline sizes */
+    body.en-mode .hero-h1 {
+      font-size: clamp(0.85rem, 1.8vw, 1.3rem) !important;
+      font-weight: 300 !important; letter-spacing: 0.18em !important;
+      color: rgba(255,255,255,0.38) !important;
+      text-transform: uppercase !important; margin-bottom: 6px !important;
+      font-feature-settings: normal !important;
     }
-    .hero-body-en {
-      font-family: var(--en); font-weight: 400;
-      font-size: 13px; color: rgba(255,255,255,0.38);
-      margin-bottom: 44px; max-width: 480px; line-height: 1.7;
+    body.en-mode .hero-en-head {
+      font-family: var(--en) !important; font-weight: 900 !important;
+      font-size: clamp(3.2rem, 8vw, 8rem) !important;
+      letter-spacing: -0.04em !important; text-transform: none !important;
+      color: var(--white) !important; line-height: 1.05 !important;
+      margin-bottom: 12px !important;
     }
+
+    .hero-body { font-family: var(--jp); font-size: 15.5px; line-height: 1.9; color: rgba(255,255,255,0.72); max-width: 520px; margin-bottom: 8px; }
+    .hero-body-en { font-family: var(--en); font-size: 13px; color: rgba(255,255,255,0.38); margin-bottom: 44px; max-width: 480px; line-height: 1.7; }
     .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
     .btn-prim {
       display: inline-flex; align-items: center; gap: 10px;
@@ -190,46 +208,30 @@
       max-width: 1440px; margin: 0 auto; padding: 28px 40px;
       display: flex; gap: 52px; flex-wrap: wrap;
     }
-    .st-n {
-      font-family: var(--en); font-weight: 900; font-size: 2rem;
-      letter-spacing: -0.03em; color: var(--white); line-height: 1;
-    }
+    .st-n { font-family: var(--en); font-weight: 900; font-size: 2rem; letter-spacing: -0.03em; color: var(--white); line-height: 1; }
     .st-n sup { color: var(--red); font-size: 0.6em; }
-    .st-l {
-      font-family: var(--jp); font-size: 11px; color: rgba(255,255,255,0.45);
-      margin-top: 4px; letter-spacing: 0.05em;
-    }
+    .st-l { font-family: var(--jp); font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 4px; }
 
     /* ══ MARQUEE ══ */
     .marquee { background: var(--ink); padding: 16px 0; overflow: hidden; }
-    .mq-track {
-      display: flex; white-space: nowrap;
-      animation: mq 30s linear infinite;
-    }
+    .mq-track { display: flex; white-space: nowrap; animation: mq 30s linear infinite; }
     .mq-item {
       display: inline-flex; align-items: center; gap: 14px; padding: 0 14px;
       font-family: var(--en); font-weight: 700; font-size: 10.5px;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45);
     }
-    .mq-jp {
-      font-family: var(--jp); font-weight: 300;
-      color: rgba(255,255,255,0.22); letter-spacing: 0.06em;
-    }
+    .mq-jp { font-family: var(--jp); font-weight: 300; color: rgba(255,255,255,0.22); letter-spacing: 0.06em; }
     .mq-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
     @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
     /* ══ SHARED ══ */
     .sw { max-width: 1440px; margin: 0 auto; padding: 0 40px; }
+    .s-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .s-eyebrow-jp  { font-family: var(--jp); font-weight: 700; font-size: 11px; letter-spacing: 0.12em; color: var(--red); }
+    .s-eyebrow-sep { color: rgba(196,26,26,0.35); font-size: 11px; }
+    .s-eyebrow-en  { font-family: var(--en); font-weight: 600; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); }
 
-    .s-eyebrow {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 20px;
-    }
-    .s-eyebrow-jp { font-family: var(--jp); font-weight: 700; font-size: 11px; letter-spacing: 0.12em; color: var(--red); }
-    .s-eyebrow-sep { font-family: var(--en); color: rgba(196,26,26,0.35); font-size: 11px; }
-    .s-eyebrow-en { font-family: var(--en); font-weight: 600; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); }
-
+    /* Section title — JP primary by default */
     .s-title-jp {
       font-family: var(--jp); font-weight: 900;
       font-size: clamp(1.9rem, 4vw, 3rem);
@@ -241,22 +243,36 @@
       letter-spacing: 0.12em; color: var(--gray);
       margin-top: 8px; text-transform: uppercase;
     }
+    /* EN mode: swap section title treatment */
+    body.en-mode .s-title-jp {
+      font-family: var(--en) !important; font-weight: 300 !important;
+      font-size: 0.95rem !important; letter-spacing: 0.12em !important;
+      color: var(--gray) !important; text-transform: uppercase !important;
+      line-height: 1.5 !important; margin-top: 0 !important;
+      font-feature-settings: normal !important;
+    }
+    body.en-mode .s-title-en {
+      font-family: var(--en) !important; font-weight: 900 !important;
+      font-size: clamp(1.9rem, 4vw, 3rem) !important;
+      letter-spacing: -0.02em !important; color: var(--ink) !important;
+      text-transform: none !important; margin-top: 0 !important;
+      line-height: 1.2 !important;
+    }
+    /* Dark bg variant */
+    body.en-mode .about .s-title-jp { color: rgba(255,255,255,0.3) !important; }
+    body.en-mode .about .s-title-en { color: var(--white) !important; }
 
     /* ══ SERVICES ══ */
     .services { background: var(--cream); padding: 112px 0; }
     .svc-head {
       display: grid; grid-template-columns: 1fr 1.8fr;
       gap: 40px; align-items: end;
-      margin-bottom: 56px; padding-bottom: 40px;
-      border-bottom: 1px solid var(--line);
+      margin-bottom: 56px; padding-bottom: 40px; border-bottom: 1px solid var(--line);
     }
-    .svc-intro { font-family: var(--jp); font-size: 15px; line-height: 1.9; color: var(--mid); }
+    .svc-intro    { font-family: var(--jp); font-size: 15px; line-height: 1.9; color: var(--mid); }
     .svc-intro-en { font-family: var(--en); font-size: 12.5px; color: var(--gray); margin-top: 8px; line-height: 1.7; }
 
-    .svc-panel {
-      display: grid; grid-template-columns: 1fr 380px;
-      gap: 0; border: 1px solid var(--line);
-    }
+    .svc-panel { display: grid; grid-template-columns: 1fr 380px; gap: 0; border: 1px solid var(--line); }
     .svc-list { border-right: 1px solid var(--line); }
     .svc-item { border-bottom: 1px solid var(--line); }
     .svc-item:last-child { border-bottom: none; }
@@ -268,135 +284,113 @@
     .svc-row:hover { background: rgba(196,26,26,0.03); }
     .svc-num { font-family: var(--en); font-weight: 700; font-size: 10px; letter-spacing: 0.2em; color: var(--red); }
     .svc-name-jp { font-family: var(--jp); font-weight: 700; font-size: 17px; color: var(--ink); line-height: 1.3; margin-bottom: 3px; transition: color 0.2s; }
-    .svc-row:hover .svc-name-jp,
-    .svc-item.open .svc-name-jp { color: var(--red); }
     .svc-name-en { font-family: var(--en); font-weight: 400; font-size: 12px; color: var(--gray); letter-spacing: 0.03em; }
+    .svc-row:hover .svc-name-jp, .svc-item.open .svc-name-jp { color: var(--red); }
+    /* EN mode: swap service name sizing */
+    body.en-mode .svc-name-jp { font-size: 11px !important; font-family: var(--en) !important; font-weight: 400 !important; color: var(--gray) !important; margin-bottom: 2px !important; }
+    body.en-mode .svc-name-en { font-family: var(--en) !important; font-weight: 700 !important; font-size: 17px !important; color: var(--ink) !important; }
+    body.en-mode .svc-row:hover .svc-name-en,
+    body.en-mode .svc-item.open .svc-name-en { color: var(--red) !important; }
+
     .svc-plus {
-      width: 32px; height: 32px; border: 1px solid var(--line);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 18px; font-weight: 300; color: var(--mid); transition: all 0.22s;
-      flex-shrink: 0; user-select: none;
+      width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 300; color: var(--mid);
+      transition: all 0.22s; flex-shrink: 0; user-select: none;
     }
-    .svc-item.open .svc-plus,
-    .svc-row:hover .svc-plus { background: var(--red); border-color: var(--red); color: var(--white); }
+    .svc-item.open .svc-plus, .svc-row:hover .svc-plus { background: var(--red); border-color: var(--red); color: var(--white); }
     .svc-drop { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
-    .svc-item.open .svc-drop { max-height: 200px; }
+    .svc-item.open .svc-drop { max-height: 220px; }
     .svc-drop-inner { padding: 0 28px 24px 100px; }
-    .svc-drop-jp { font-family: var(--jp); font-size: 13.5px; line-height: 1.85; color: var(--mid); margin-bottom: 6px; }
-    .svc-drop-en { font-family: var(--en); font-size: 12px; color: var(--gray); line-height: 1.75; }
+    .svc-drop-jp { font-family: var(--jp); font-size: 13.5px; line-height: 1.85; color: var(--mid); margin-bottom: 4px; }
+    .svc-drop-en { font-family: var(--en); font-size: 12.5px; color: var(--gray); line-height: 1.75; }
+    /* EN mode: swap drop body prominence */
+    body.en-mode .svc-drop-jp { font-size: 11.5px !important; color: var(--gray) !important; margin-bottom: 6px; }
+    body.en-mode .svc-drop-en { font-size: 13.5px !important; color: var(--mid) !important; }
 
     /* Image panel */
     .svc-img-panel { position: relative; overflow: hidden; background: var(--charcoal); min-height: 400px; }
     .svc-img { position: absolute; inset: 0; object-fit: cover; width: 100%; height: 100%; transition: opacity 0.5s ease; opacity: 0; }
     .svc-img.active { opacity: 1; }
     .svc-img-overlay { position: absolute; inset: 0; background: rgba(8,8,8,0.3); }
-    .svc-img-default {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-    }
+    .svc-img-default { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
     .svc-img-default img { width: 140px; opacity: 0.15; }
 
     /* ══ ABOUT ══ */
     .about { background: var(--charcoal); color: var(--white); overflow: hidden; }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 680px; }
     .about-img-col { position: relative; overflow: hidden; }
-    .about-img-col img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.7; }
+    .about-img-col img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
     .about-img-col::after {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(to right, rgba(28,28,30,0) 60%, var(--charcoal) 100%);
     }
-    .about-text-col {
-      padding: 80px 64px 80px 56px;
-      display: flex; flex-direction: column; justify-content: center;
-      position: relative; z-index: 1;
-    }
-    .about-ghost {
-      position: absolute; right: -20px; bottom: -20px;
-      font-family: var(--en); font-weight: 900;
-      font-size: clamp(6rem,15vw,16rem);
-      letter-spacing: -0.06em; color: rgba(255,255,255,0.025);
-      pointer-events: none; line-height: 1;
-      user-select: none;
-    }
-    .about-quote {
-      font-family: var(--jp); font-weight: 900;
-      font-size: clamp(1.6rem,3vw,2.6rem);
-      letter-spacing: -0.01em; line-height: 1.25;
-      color: var(--white); margin-bottom: 10px;
-      font-feature-settings: "palt";
-    }
-    .about-quote em { font-style: normal; color: var(--red); }
-    .about-quote-en {
-      font-family: var(--en); font-weight: 300; font-size: 14px;
-      letter-spacing: 0.06em; color: rgba(255,255,255,0.3);
-      margin-bottom: 36px; font-style: italic;
-    }
-    .about-p-jp { font-family: var(--jp); font-size: 14.5px; line-height: 1.9; color: rgba(255,255,255,0.62); margin-bottom: 10px; }
-    .about-p-jp strong { color: var(--white); font-weight: 700; }
-    .about-p-en { font-family: var(--en); font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.75; margin-bottom: 32px; }
-    .about-link {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: var(--jp); font-weight: 700; font-size: 13px;
-      color: rgba(255,255,255,0.65); transition: gap 0.2s;
-    }
-    .about-link:hover { gap: 16px; }
-    .about-link .circ {
-      width: 30px; height: 30px; border: 1.5px solid rgba(255,255,255,0.25);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 13px; transition: all 0.2s;
-    }
-    .about-link:hover .circ { background: var(--red); border-color: var(--red); }
+    .about-text-col { padding: 80px 64px 80px 56px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+    .about-ghost { position: absolute; right: -20px; bottom: -20px; font-family: var(--en); font-weight: 900; font-size: clamp(6rem,15vw,16rem); letter-spacing: -0.06em; color: rgba(255,255,255,0.025); pointer-events: none; line-height: 1; user-select: none; }
 
-    .about-pillars { margin-top: 48px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .about-quote    { font-family: var(--jp); font-weight: 900; font-size: clamp(1.6rem,3vw,2.6rem); letter-spacing: -0.01em; line-height: 1.25; color: var(--white); margin-bottom: 6px; font-feature-settings: "palt"; }
+    .about-quote em { font-style: normal; color: var(--red); }
+    .about-quote-en { font-family: var(--en); font-weight: 300; font-size: 14px; letter-spacing: 0.06em; color: rgba(255,255,255,0.3); margin-bottom: 32px; font-style: italic; }
+    /* EN mode: swap about quote */
+    body.en-mode .about-quote    { font-size: 14px !important; font-weight: 300 !important; letter-spacing: 0.06em !important; color: rgba(255,255,255,0.3) !important; font-style: italic !important; font-feature-settings: normal !important; }
+    body.en-mode .about-quote-en { font-family: var(--en) !important; font-weight: 900 !important; font-size: clamp(1.6rem,3vw,2.6rem) !important; letter-spacing: -0.02em !important; color: var(--white) !important; font-style: normal !important; margin-bottom: 6px !important; }
+
+    .about-p-jp { font-family: var(--jp); font-size: 14.5px; line-height: 1.9; color: rgba(255,255,255,0.62); margin-bottom: 8px; }
+    .about-p-jp strong { color: var(--white); font-weight: 700; }
+    .about-p-en { font-family: var(--en); font-size: 12.5px; color: rgba(255,255,255,0.3); line-height: 1.75; margin-bottom: 28px; }
+    /* EN mode: swap about body */
+    body.en-mode .about-p-jp { font-size: 12px !important; color: rgba(255,255,255,0.32) !important; }
+    body.en-mode .about-p-en { font-size: 14.5px !important; color: rgba(255,255,255,0.62) !important; margin-bottom: 8px !important; }
+    body.en-mode .about-p-en.last { margin-bottom: 28px !important; }
+
+    .about-link { display: inline-flex; align-items: center; gap: 10px; font-family: var(--jp); font-weight: 700; font-size: 13px; color: rgba(255,255,255,0.65); transition: gap 0.2s; }
+    .about-link:hover { gap: 16px; }
+    .about-link .circ { width: 30px; height: 30px; border: 1.5px solid rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: all 0.2s; }
+    .about-link:hover .circ { background: var(--red); border-color: var(--red); }
+    .about-pillars { margin-top: 44px; border-top: 1px solid rgba(255,255,255,0.08); }
     .pillar { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .p-tag { font-family: var(--en); font-weight: 700; font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--red); margin-bottom: 7px; }
-    .p-title-jp { font-family: var(--jp); font-weight: 700; font-size: 14px; color: var(--white); margin-bottom: 4px; line-height: 1.4; }
-    .p-title-en { font-family: var(--en); font-weight: 400; font-size: 11.5px; color: rgba(255,255,255,0.35); margin-bottom: 6px; font-style: italic; }
-    .p-body { font-family: var(--jp); font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.45); }
+    .p-tag     { font-family: var(--en); font-weight: 700; font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--red); margin-bottom: 7px; }
+    .p-title-jp { font-family: var(--jp); font-weight: 700; font-size: 14px; color: var(--white); margin-bottom: 3px; line-height: 1.4; }
+    .p-title-en { font-family: var(--en); font-weight: 400; font-size: 11.5px; color: rgba(255,255,255,0.32); font-style: italic; margin-bottom: 5px; }
+    .p-body-jp  { font-family: var(--jp); font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.45); }
+    .p-body-en  { font-family: var(--en); font-size: 12px; line-height: 1.75; color: rgba(255,255,255,0.28); margin-top: 3px; }
+    /* EN mode: swap pillar title/body */
+    body.en-mode .p-title-jp { font-weight: 400 !important; font-size: 11.5px !important; color: rgba(255,255,255,0.32) !important; font-style: italic !important; margin-bottom: 3px !important; }
+    body.en-mode .p-title-en { font-family: var(--en) !important; font-weight: 700 !important; font-size: 14px !important; color: var(--white) !important; font-style: normal !important; margin-bottom: 5px !important; }
+    body.en-mode .p-body-jp  { font-size: 11.5px !important; color: rgba(255,255,255,0.28) !important; }
+    body.en-mode .p-body-en  { font-size: 13px !important; color: rgba(255,255,255,0.45) !important; }
 
     /* ══ VALUES ══ */
     .values { background: var(--cream); padding: 112px 0; }
-    .s-title-jp.white { color: var(--white); }
-    .val-grid {
-      display: grid; grid-template-columns: repeat(4,1fr);
-      border-left: 1px solid var(--line); margin-top: 56px;
-    }
+    .val-grid { display: grid; grid-template-columns: repeat(4,1fr); border-left: 1px solid var(--line); margin-top: 56px; }
     .val-item { padding: 36px 28px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); transition: background 0.22s; }
     .val-item:hover { background: rgba(196,26,26,0.04); }
-    .val-n { font-family: var(--en); font-weight: 700; font-size: 9.5px; letter-spacing: 0.25em; color: var(--red); margin-bottom: 18px; }
+    .val-n  { font-family: var(--en); font-weight: 700; font-size: 9.5px; letter-spacing: 0.25em; color: var(--red); margin-bottom: 18px; }
     .val-jp { font-family: var(--jp); font-weight: 700; font-size: 15px; color: var(--ink); line-height: 1.4; margin-bottom: 5px; }
     .val-en { font-family: var(--en); font-weight: 400; font-size: 12px; color: var(--gray); }
+    /* EN mode: swap value text */
+    body.en-mode .val-jp { font-family: var(--en) !important; font-weight: 400 !important; font-size: 12px !important; color: var(--gray) !important; margin-bottom: 3px !important; }
+    body.en-mode .val-en { font-family: var(--en) !important; font-weight: 700 !important; font-size: 15px !important; color: var(--ink) !important; }
 
     /* ══ IMAGE STRIP ══ */
     .img-strip { position: relative; height: 480px; overflow: hidden; }
     .img-strip img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-    .img-strip-overlay {
-      position: absolute; inset: 0;
-      background: rgba(8,8,8,0.55);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .strip-text {
-      text-align: center; max-width: 760px; padding: 0 40px;
-    }
-    .strip-jp {
-      font-family: var(--jp); font-weight: 900;
-      font-size: clamp(2rem, 5vw, 4.5rem);
-      letter-spacing: -0.02em; color: var(--white);
-      line-height: 1.15; margin-bottom: 12px;
-      font-feature-settings: "palt";
-    }
+    .img-strip-overlay { position: absolute; inset: 0; background: rgba(8,8,8,0.55); display: flex; align-items: center; justify-content: center; }
+    .strip-text { text-align: center; max-width: 760px; padding: 0 40px; }
+    .strip-jp { font-family: var(--jp); font-weight: 900; font-size: clamp(2rem,5vw,4.5rem); letter-spacing: -0.02em; color: var(--white); line-height: 1.15; margin-bottom: 12px; font-feature-settings: "palt"; }
     .strip-jp span { color: var(--red); }
-    .strip-en {
-      font-family: var(--en); font-weight: 300; font-size: 14px;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-    }
+    .strip-en { font-family: var(--en); font-weight: 300; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    /* EN mode: swap strip */
+    body.en-mode .strip-jp { font-size: 14px !important; font-weight: 300 !important; letter-spacing: 0.15em !important; text-transform: uppercase !important; color: rgba(255,255,255,0.38) !important; margin-bottom: 8px !important; font-feature-settings: normal !important; }
+    body.en-mode .strip-en { font-family: var(--en) !important; font-weight: 900 !important; font-size: clamp(2rem,5vw,4.5rem) !important; letter-spacing: -0.02em !important; text-transform: none !important; color: var(--white) !important; line-height: 1.15 !important; }
 
     /* ══ CONTACT ══ */
     .contact { background: var(--cream); padding: 112px 0; }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 88px; align-items: start; }
     .contact-intro-jp { font-family: var(--jp); font-size: 15px; line-height: 1.9; color: var(--mid); margin-top: 18px; max-width: 340px; }
-    .contact-intro-en { font-family: var(--en); font-size: 12.5px; color: var(--gray); margin-top: 8px; line-height: 1.7; }
+    .contact-intro-en { font-family: var(--en); font-size: 12.5px; color: var(--gray); margin-top: 6px; line-height: 1.7; }
+    body.en-mode .contact-intro-jp { font-size: 12.5px !important; color: var(--gray) !important; }
+    body.en-mode .contact-intro-en { font-size: 15px !important; color: var(--mid) !important; }
     .cdet { margin-top: 40px; }
     .cdet-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; }
     .cdet-icon { width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 3px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -407,12 +401,11 @@
     .form-box { background: var(--white); padding: 48px; border: 1px solid var(--line); }
     .form-hd-jp { font-family: var(--jp); font-weight: 800; font-size: 20px; letter-spacing: -0.01em; color: var(--ink); }
     .form-hd-en { font-family: var(--en); font-size: 12px; color: var(--gray); margin-top: 3px; margin-bottom: 28px; }
+    body.en-mode .form-hd-jp { font-size: 12px !important; font-weight: 400 !important; color: var(--gray) !important; letter-spacing: 0 !important; }
+    body.en-mode .form-hd-en { font-size: 20px !important; font-weight: 800 !important; color: var(--ink) !important; letter-spacing: -0.01em !important; margin-top: 0 !important; }
+
     .fg { margin-bottom: 15px; }
-    .fl {
-      display: block;
-      font-family: var(--jp); font-weight: 600; font-size: 12px; color: var(--mid);
-      margin-bottom: 7px;
-    }
+    .fl { display: block; font-family: var(--jp); font-weight: 600; font-size: 12px; color: var(--mid); margin-bottom: 7px; }
     .fl span { font-family: var(--en); font-size: 10.5px; color: var(--gray); margin-left: 6px; font-weight: 400; }
     .fi, .fs, .ft {
       width: 100%; padding: 11px 14px;
@@ -422,12 +415,11 @@
       appearance: none; -webkit-appearance: none; border-radius: 2px;
     }
     .fi:focus, .fs:focus, .ft:focus { border-color: var(--red); background: var(--white); }
-    .fi::placeholder, .ft::placeholder { color: var(--gray); font-family: var(--jp); }
+    .fi::placeholder, .ft::placeholder { color: var(--gray); }
     .ft { resize: vertical; min-height: 90px; }
     .frow2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .fsub {
-      width: 100%; padding: 14px;
-      background: var(--ink); color: var(--white);
+      width: 100%; padding: 14px; background: var(--ink); color: var(--white);
       font-family: var(--jp); font-weight: 700; font-size: 14px;
       border: none; border-radius: 2px; cursor: pointer;
       transition: background 0.22s; margin-top: 4px;
@@ -438,20 +430,15 @@
 
     /* ══ FOOTER ══ */
     footer { background: var(--ink); padding: 64px 0 32px; }
-    .ft-top {
-      display: grid; grid-template-columns: 1.7fr 1fr 1fr 1fr;
-      gap: 48px; padding-bottom: 52px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
+    .ft-top { display: grid; grid-template-columns: 1.7fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.07); }
     .ft-logo img { height: 31px; margin-bottom: 18px; }
-    .ft-desc-jp { font-family: var(--jp); font-size: 12.5px; line-height: 1.8; color: rgba(255,255,255,0.35); max-width: 220px; }
-    .ft-desc-en { font-family: var(--en); font-size: 11px; color: rgba(255,255,255,0.18); margin-top: 7px; line-height: 1.7; max-width: 220px; }
-    .ft-col-hd {
-      font-family: var(--jp); font-weight: 700; font-size: 12px;
-      color: rgba(255,255,255,0.45); margin-bottom: 16px;
-    }
+    .ft-desc-jp { font-family: var(--jp); font-size: 12.5px; line-height: 1.8; color: rgba(255,255,255,0.35); max-width: 230px; }
+    .ft-desc-en { font-family: var(--en); font-size: 11px; color: rgba(255,255,255,0.18); margin-top: 7px; line-height: 1.7; max-width: 230px; }
+    body.en-mode .ft-desc-jp { font-size: 11px !important; color: rgba(255,255,255,0.18) !important; margin-top: 7px !important; }
+    body.en-mode .ft-desc-en { font-size: 12.5px !important; color: rgba(255,255,255,0.35) !important; margin-top: 0 !important; }
+    .ft-col-hd { font-family: var(--jp); font-weight: 700; font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 16px; }
     .ft-links { display: flex; flex-direction: column; gap: 10px; }
-    .ft-links a { font-family: var(--jp); font-size: 13px; color: rgba(255,255,255,0.32); transition: color 0.18s; }
+    .ft-links a   { font-family: var(--jp); font-size: 13px; color: rgba(255,255,255,0.32); transition: color 0.18s; }
     .ft-links a:hover { color: var(--white); }
     .ft-links span { font-size: 12px; color: rgba(255,255,255,0.2); line-height: 1.75; }
     .ft-bottom { padding-top: 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
@@ -460,16 +447,10 @@
     .ft-addr { font-family: var(--en); font-size: 10.5px; color: rgba(255,255,255,0.18); text-align: right; }
 
     /* ══ REVEAL ══ */
-    .rev {
-      opacity: 0; transform: translateY(18px);
-      transition: opacity 0.78s cubic-bezier(0.25,0.46,0.45,0.94),
-                  transform 0.78s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
+    .rev { opacity: 0; transform: translateY(18px); transition: opacity 0.78s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.78s cubic-bezier(0.25,0.46,0.45,0.94); }
     .rev.in { opacity: 1; transform: none; }
-    .d1 { transition-delay: 0.07s; }
-    .d2 { transition-delay: 0.15s; }
-    .d3 { transition-delay: 0.23s; }
-    .d4 { transition-delay: 0.31s; }
+    .d1 { transition-delay: 0.07s; } .d2 { transition-delay: 0.15s; }
+    .d3 { transition-delay: 0.23s; } .d4 { transition-delay: 0.31s; }
 
     /* ══ RESPONSIVE ══ */
     @media (max-width: 1100px) {
@@ -522,11 +503,17 @@
     </a>
     <div class="nav-right">
       <div class="nav-links">
-        <a href="#services">事業内容</a>
-        <a href="#about">会社概要</a>
-        <a href="#contact">お問い合わせ</a>
+        <a href="#services" data-jp="事業内容" data-en="Services">事業内容</a>
+        <a href="#about"    data-jp="会社概要" data-en="About">会社概要</a>
+        <a href="#contact"  data-jp="お問い合わせ" data-en="Contact">お問い合わせ</a>
       </div>
-      <a href="#contact" class="nav-cta">無料相談 →</a>
+      <a href="#contact" class="nav-cta" data-jp="無料相談 →" data-en="Free Consult →">無料相談 →</a>
+      <!-- Language toggle -->
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <span class="lt-opt" data-lang="jp">JP</span>
+        <span class="lt-div"></span>
+        <span class="lt-opt" data-lang="en">EN</span>
+      </button>
     </div>
   </div>
 </nav>
@@ -534,12 +521,8 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-bg">
-    <img
-      src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1920&q=80"
-      alt="Tokyo at night"
-      loading="eager">
+    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1920&q=80" alt="Tokyo" loading="eager">
   </div>
-
   <div class="hero-inner">
     <div class="hero-content">
       <div class="hero-meta">
@@ -547,39 +530,23 @@
         <span class="h-line"></span>
         <span class="h-sub">Est. 2014 · Fukuoka, Japan</span>
       </div>
-      <h1 class="hero-h1">
-        世界と、<br>ビジネスを。
-      </h1>
-      <p class="hero-en">Move. Build. Grow. Globally.</p>
-      <p class="hero-body">
-        日本と世界をつなぐ、最も信頼されるパートナー。<br>
-        言語・規制・距離の壁を取り除き、すべてのクライアントにグローバルな機会を届ける。
-      </p>
-      <p class="hero-body-en">The most trusted partner for businesses and individuals navigating the space between Japan and the world.</p>
+      <h1 class="hero-h1">世界と、<br>ビジネスを。</h1>
+      <p class="hero-en-head">Move. Build. Grow. Globally.</p>
+      <p class="hero-body jp-show">日本と世界をつなぐ、最も信頼されるパートナー。<br>言語・規制・距離の壁を取り除き、すべてのクライアントにグローバルな機会を届ける。</p>
+      <p class="hero-body en-show">The most trusted partner for businesses and individuals navigating the space between Japan and the world. Removing barriers of language, regulation, and distance.</p>
+      <p class="hero-body-en jp-show">The most trusted partner between Japan and the world.</p>
+      <p class="hero-body-en en-show" style="font-family:var(--jp);color:rgba(255,255,255,0.38);font-size:13px;margin-bottom:44px;line-height:1.85;">日本と世界をつなぐ、最も信頼されるパートナー。</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn-prim">無料相談を申し込む →</a>
-        <a href="#services" class="btn-ghost-w">View Services ↓</a>
+        <a href="#contact" class="btn-prim" data-jp="無料相談を申し込む →" data-en="Book a Free Consult →">無料相談を申し込む →</a>
+        <a href="#services" class="btn-ghost-w" data-jp="事業内容を見る ↓" data-en="View Services ↓">事業内容を見る ↓</a>
       </div>
     </div>
   </div>
-
   <div class="hero-stats">
-    <div class="stat">
-      <div class="st-n">10<sup>+</sup></div>
-      <div class="st-l">年の実績</div>
-    </div>
-    <div class="stat">
-      <div class="st-n">5</div>
-      <div class="st-l">専門領域</div>
-    </div>
-    <div class="stat">
-      <div class="st-n">2</div>
-      <div class="st-l">対応言語（標準）</div>
-    </div>
-    <div class="stat">
-      <div class="st-n">∞</div>
-      <div class="st-l">グローバルなリーチ</div>
-    </div>
+    <div class="stat"><div class="st-n">10<sup>+</sup></div><div class="st-l" data-jp="年の実績" data-en="Years Operating">年の実績</div></div>
+    <div class="stat"><div class="st-n">5</div><div class="st-l" data-jp="専門領域" data-en="Service Areas">専門領域</div></div>
+    <div class="stat"><div class="st-n">2</div><div class="st-l" data-jp="対応言語（標準）" data-en="Languages Default">対応言語（標準）</div></div>
+    <div class="stat"><div class="st-n">∞</div><div class="st-l" data-jp="グローバルなリーチ" data-en="Global Reach">グローバルなリーチ</div></div>
   </div>
 </section>
 
@@ -623,8 +590,10 @@
         <div class="s-title-en">Five Areas. Total Coverage.</div>
       </div>
       <div>
-        <p class="svc-intro">教育からビジネス開発まで、日本のグローバルインターフェースのすべてをカバー。二言語対応で、言語の壁をゼロに。</p>
-        <p class="svc-intro-en">From education to enterprise, we cover every dimension of Japan's global interface — end to end, in both languages.</p>
+        <p class="svc-intro jp-show">教育からビジネス開発まで、日本のグローバルインターフェースのすべてをカバー。二言語対応で、言語の壁をゼロに。</p>
+        <p class="svc-intro en-show">From education to enterprise, we cover every dimension of Japan's global interface — end to end, in both languages.</p>
+        <p class="svc-intro-en jp-show">From education to enterprise, we cover every dimension of Japan's global interface — end to end, in both languages.</p>
+        <p class="svc-intro-en en-show" style="font-family:var(--jp);font-size:12px;color:var(--gray);margin-top:8px;line-height:1.9;">教育からビジネス開発まで、日本のグローバルインターフェースのすべてをカバー。</p>
       </div>
     </div>
 
@@ -646,7 +615,6 @@
             </div>
           </div>
         </div>
-
         <div class="svc-item" data-img="svc2">
           <div class="svc-row">
             <span class="svc-num">02</span>
@@ -663,7 +631,6 @@
             </div>
           </div>
         </div>
-
         <div class="svc-item" data-img="svc3">
           <div class="svc-row">
             <span class="svc-num">03</span>
@@ -680,7 +647,6 @@
             </div>
           </div>
         </div>
-
         <div class="svc-item" data-img="svc4">
           <div class="svc-row">
             <span class="svc-num">04</span>
@@ -697,7 +663,6 @@
             </div>
           </div>
         </div>
-
         <div class="svc-item" data-img="svc5">
           <div class="svc-row">
             <span class="svc-num">05</span>
@@ -715,28 +680,14 @@
           </div>
         </div>
       </div>
-
       <div class="svc-img-panel">
-        <!-- Service images -->
-        <img id="svc1" class="svc-img active"
-          src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=760&q=80"
-          alt="国際教育">
-        <img id="svc2" class="svc-img"
-          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=760&q=80"
-          alt="国際ビジネス開発">
-        <img id="svc3" class="svc-img"
-          src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=760&q=80"
-          alt="輸出入">
-        <img id="svc4" class="svc-img"
-          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=760&q=80"
-          alt="国際不動産">
-        <img id="svc5" class="svc-img"
-          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=760&q=80"
-          alt="留学・海外就労">
+        <img id="svc1" class="svc-img active" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=760&q=80" alt="国際教育">
+        <img id="svc2" class="svc-img" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=760&q=80" alt="ビジネス開発">
+        <img id="svc3" class="svc-img" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=760&q=80" alt="輸出入">
+        <img id="svc4" class="svc-img" src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=760&q=80" alt="不動産">
+        <img id="svc5" class="svc-img" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=760&q=80" alt="留学・就労">
         <div class="svc-img-overlay"></div>
-        <div class="svc-img-default">
-          <img src="brand-assets/globalgo official logo.png" alt="">
-        </div>
+        <div class="svc-img-default"><img src="brand-assets/globalgo official logo.png" alt=""></div>
       </div>
     </div>
   </div>
@@ -746,46 +697,46 @@
 <section class="about" id="about">
   <div class="about-grid">
     <div class="about-img-col">
-      <img
-        src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=900&q=80"
-        alt="Tokyo business district">
+      <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=900&q=80" alt="Tokyo business district">
     </div>
     <div class="about-text-col rev">
       <div class="about-ghost" aria-hidden="true">GO</div>
       <div class="s-eyebrow" style="margin-bottom:20px;">
         <span class="s-eyebrow-jp">私たちについて</span>
         <span class="s-eyebrow-sep">/</span>
-        <span class="s-eyebrow-en" style="color:rgba(255,255,255,0.35);">About GlobalGo</span>
+        <span class="s-eyebrow-en" style="color:rgba(255,255,255,0.3);">About GlobalGo</span>
       </div>
       <p class="about-quote">「アドバイスだけでなく、<br><em>アクション。</em>」</p>
-      <p class="about-quote-en">We don't just advise. We act.</p>
-      <p class="about-p-jp">
-        グローバルゴー（株式会社グローバルゴー）は、2014年に福岡県久留米市で設立された国際ビジネス・教育企業です。<strong>深い現地知識</strong>とバイリンガル対応を武器に、5つの専門領域で日本と世界をつなぎます。
-      </p>
-      <p class="about-p-en">GlobalGo — founded in Fukuoka in 2014 — operates across five disciplines, connecting Japan with the world through deep local expertise and bilingual delivery.</p>
-      <a href="#contact" class="about-link">
+      <p class="about-quote-en">We don't just advise. We <em style="font-style:normal;color:var(--red)">act.</em></p>
+      <p class="about-p-jp">グローバルゴー（株式会社グローバルゴー）は、2014年に福岡県久留米市で設立された国際ビジネス・教育企業です。<strong>深い現地知識</strong>とバイリンガル対応を武器に、5つの専門領域で日本と世界をつなぎます。</p>
+      <p class="about-p-en">GlobalGo — founded in Fukuoka in 2014 — operates across five disciplines, connecting Japan with the world through <strong style="color:var(--white);font-weight:700;">deep local expertise</strong> and bilingual delivery.</p>
+      <p class="about-p-jp">私たちの評判は、一つの原則で築かれています：<strong>プロセスより結果。</strong></p>
+      <p class="about-p-en last">Our reputation is built on one principle: <strong style="color:var(--white);font-weight:700;">results over process.</strong></p>
+      <a href="#contact" class="about-link" data-jp="お問い合わせはこちら →" data-en="Start a conversation →">
         お問い合わせはこちら
         <span class="circ">→</span>
       </a>
-
       <div class="about-pillars">
         <div class="pillar">
           <div class="p-tag">Mission · ミッション</div>
           <div class="p-title-jp">グローバルな機会を、すべての人へ。</div>
           <div class="p-title-en">Make global opportunity accessible.</div>
-          <div class="p-body">言語・規制・距離の壁を取り除き、すべてのクライアントにグローバルな機会を届ける。</div>
+          <div class="p-body-jp">言語・規制・距離の壁を取り除き、すべてのクライアントにグローバルな機会を届ける。</div>
+          <div class="p-body-en">Removing barriers of language, regulation, and distance for every client we serve.</div>
         </div>
         <div class="pillar">
           <div class="p-tag">Vision · ビジョン</div>
           <div class="p-title-jp">国内と同じ自信で、世界へ。</div>
           <div class="p-title-en">Operate globally with home-court confidence.</div>
-          <div class="p-body">すべての日本企業・個人が、国内と同じ自信をもってグローバルに活動できる世界を目指します。</div>
+          <div class="p-body-jp">すべての日本企業・個人が、国内と同じ自信をもってグローバルに活動できる世界を目指します。</div>
+          <div class="p-body-en">A world where any Japanese company or individual can operate globally with the same confidence as at home.</div>
         </div>
         <div class="pillar">
           <div class="p-tag">Position</div>
           <div class="p-title-jp">日本と世界をつなぐ、最も信頼されるパートナー。</div>
           <div class="p-title-en">"The most trusted partner between Japan and the world."</div>
-          <div class="p-body">精度・バイリンガル対応・実行力への執念によって、信頼を積み重ねます。</div>
+          <div class="p-body-jp">精度・バイリンガル対応・実行力への執念によって、信頼を積み重ねます。</div>
+          <div class="p-body-en">Earned through precision, bilingual delivery, and a relentless bias toward action.</div>
         </div>
       </div>
     </div>
@@ -805,35 +756,17 @@
       <div class="s-title-en">How We Work.</div>
     </div>
     <div class="val-grid">
-      <div class="val-item rev d1">
-        <div class="val-n">01</div>
-        <div class="val-jp">量より精度。</div>
-        <div class="val-en">Precision over volume.</div>
-      </div>
-      <div class="val-item rev d2">
-        <div class="val-n">02</div>
-        <div class="val-jp">バイリンガルが標準。</div>
-        <div class="val-en">Bilingual by default.</div>
-      </div>
-      <div class="val-item rev d3">
-        <div class="val-n">03</div>
-        <div class="val-jp">アドバイスより行動。</div>
-        <div class="val-en">Action over advice.</div>
-      </div>
-      <div class="val-item rev d4">
-        <div class="val-n">04</div>
-        <div class="val-jp">信頼は積み重ねるもの。</div>
-        <div class="val-en">Earned trust, not assumed.</div>
-      </div>
+      <div class="val-item rev d1"><div class="val-n">01</div><div class="val-jp">量より精度。</div><div class="val-en">Precision over volume.</div></div>
+      <div class="val-item rev d2"><div class="val-n">02</div><div class="val-jp">バイリンガルが標準。</div><div class="val-en">Bilingual by default.</div></div>
+      <div class="val-item rev d3"><div class="val-n">03</div><div class="val-jp">アドバイスより行動。</div><div class="val-en">Action over advice.</div></div>
+      <div class="val-item rev d4"><div class="val-n">04</div><div class="val-jp">信頼は積み重ねるもの。</div><div class="val-en">Earned trust, not assumed.</div></div>
     </div>
   </div>
 </section>
 
 <!-- IMAGE STRIP -->
 <div class="img-strip">
-  <img
-    src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80"
-    alt="Global reach">
+  <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80" alt="Global reach">
   <div class="img-strip-overlay">
     <div class="strip-text rev">
       <p class="strip-jp">グローバルへの一歩を、<br>今すぐ。<span>一緒に。</span></p>
@@ -858,45 +791,19 @@
         <p class="contact-intro-en">Reach us directly or use the form. We respond in English and Japanese within one business day.</p>
         <div class="cdet">
           <div class="cdet-item">
-            <div class="cdet-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-            </div>
-            <div>
-              <div class="cdet-lbl">Email</div>
-              <div class="cdet-val">info@globalgo.co.jp</div>
-            </div>
+            <div class="cdet-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="cdet-lbl">Email</div><div class="cdet-val">info@globalgo.co.jp</div></div>
           </div>
           <div class="cdet-item">
-            <div class="cdet-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-            </div>
-            <div>
-              <div class="cdet-lbl">Location</div>
-              <div class="cdet-val">福岡県久留米市 / Kurume, Fukuoka</div>
-            </div>
+            <div class="cdet-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="cdet-lbl">Location</div><div class="cdet-val" data-jp="福岡県久留米市 / Kurume, Fukuoka" data-en="Kurume, Fukuoka, Japan / 福岡県久留米市">福岡県久留米市 / Kurume, Fukuoka</div></div>
           </div>
           <div class="cdet-item">
-            <div class="cdet-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="cdet-lbl">Web</div>
-              <div class="cdet-val">globalgo.co.jp</div>
-            </div>
+            <div class="cdet-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div><div class="cdet-lbl">Web</div><div class="cdet-val">globalgo.co.jp</div></div>
           </div>
         </div>
       </div>
-
       <div class="form-box rev d1">
         <div class="form-hd-jp">お問い合わせフォーム</div>
         <div class="form-hd-en">Contact Form · Free Consultation Available</div>
@@ -918,21 +825,21 @@
           <div class="fg">
             <label class="fl">ご希望のサービス<span>/ Service</span></label>
             <select class="fs">
-              <option value="">選択してください / Please select</option>
-              <option>国際教育 / International Education</option>
-              <option>国際ビジネス開発 / Business Development</option>
-              <option>輸出入コンサルティング / Import &amp; Export</option>
-              <option>国際不動産 / International Real Estate</option>
-              <option>留学・海外就労 / Study &amp; Work Abroad</option>
-              <option>その他 / General Inquiry</option>
+              <option value="" data-jp="選択してください / Please select" data-en="Please select / 選択してください">選択してください / Please select</option>
+              <option data-jp="国際教育 / International Education" data-en="International Education / 国際教育">国際教育 / International Education</option>
+              <option data-jp="国際ビジネス開発 / Business Development" data-en="Business Development / 国際ビジネス開発">国際ビジネス開発 / Business Development</option>
+              <option data-jp="輸出入コンサルティング / Import &amp; Export" data-en="Import &amp; Export / 輸出入コンサルティング">輸出入コンサルティング / Import &amp; Export</option>
+              <option data-jp="国際不動産 / International Real Estate" data-en="International Real Estate / 国際不動産">国際不動産 / International Real Estate</option>
+              <option data-jp="留学・海外就労 / Study &amp; Work Abroad" data-en="Study &amp; Work Abroad / 留学・海外就労">留学・海外就労 / Study &amp; Work Abroad</option>
+              <option data-jp="その他 / General Inquiry" data-en="General Inquiry / その他">その他 / General Inquiry</option>
             </select>
           </div>
           <div class="fg">
             <label class="fl">メッセージ<span>/ Message</span></label>
             <textarea class="ft" placeholder="ご要望・ご質問をお聞かせください。 / Tell us about your goals..."></textarea>
           </div>
-          <button type="submit" class="fsub">送信する / Send Message →</button>
-          <p class="fnote">1営業日以内に、ご希望の言語でご返信します。<br><span style="font-family:var(--en);font-size:11px;">We respond within 1 business day in your preferred language.</span></p>
+          <button type="submit" class="fsub" data-jp="送信する / Send Message →" data-en="Send Message / 送信する →">送信する / Send Message →</button>
+          <p class="fnote" data-jp="1営業日以内に、ご希望の言語でご返信します。" data-en="We respond within 1 business day in your preferred language.">1営業日以内に、ご希望の言語でご返信します。</p>
         </form>
       </div>
     </div>
@@ -949,41 +856,41 @@
         <p class="ft-desc-en">The most trusted partner for businesses and individuals navigating the space between Japan and the world.</p>
       </div>
       <div>
-        <div class="ft-col-hd">事業内容</div>
+        <div class="ft-col-hd" data-jp="事業内容" data-en="Services">事業内容</div>
         <div class="ft-links">
-          <a href="#services">国際教育</a>
-          <a href="#services">国際ビジネス開発</a>
-          <a href="#services">輸出入コンサルティング</a>
-          <a href="#services">国際不動産</a>
-          <a href="#services">留学・海外就労</a>
+          <a href="#services" data-jp="国際教育" data-en="International Education">国際教育</a>
+          <a href="#services" data-jp="国際ビジネス開発" data-en="Business Development">国際ビジネス開発</a>
+          <a href="#services" data-jp="輸出入コンサルティング" data-en="Import / Export">輸出入コンサルティング</a>
+          <a href="#services" data-jp="国際不動産" data-en="International Real Estate">国際不動産</a>
+          <a href="#services" data-jp="留学・海外就労" data-en="Study &amp; Work Abroad">留学・海外就労</a>
         </div>
       </div>
       <div>
-        <div class="ft-col-hd">会社情報</div>
+        <div class="ft-col-hd" data-jp="会社情報" data-en="Company">会社情報</div>
         <div class="ft-links">
-          <a href="#about">会社概要</a>
-          <a href="#contact">お問い合わせ</a>
-          <a href="#">プライバシーポリシー</a>
+          <a href="#about"   data-jp="会社概要" data-en="About Us">会社概要</a>
+          <a href="#contact" data-jp="お問い合わせ" data-en="Contact">お問い合わせ</a>
+          <a href="#"        data-jp="プライバシーポリシー" data-en="Privacy Policy">プライバシーポリシー</a>
         </div>
       </div>
       <div>
-        <div class="ft-col-hd">連絡先</div>
+        <div class="ft-col-hd" data-jp="連絡先" data-en="Contact">連絡先</div>
         <div class="ft-links">
           <a href="mailto:info@globalgo.co.jp">info@globalgo.co.jp</a>
           <a href="#">globalgo.co.jp</a>
-          <span>福岡県久留米市<br>Kurume, Fukuoka, Japan</span>
+          <span data-jp="福岡県久留米市 / Kurume, Fukuoka" data-en="Kurume, Fukuoka, Japan / 福岡県久留米市">福岡県久留米市<br>Kurume, Fukuoka, Japan</span>
         </div>
       </div>
     </div>
     <div class="ft-bottom">
-      <div class="ft-copy">© 2026 株式会社グローバルゴー <span>/ GlobalGo, Inc. · All rights reserved.</span></div>
+      <div class="ft-copy" data-jp="© 2026 株式会社グローバルゴー / GlobalGo, Inc. · All rights reserved." data-en="© 2026 GlobalGo, Inc. / 株式会社グローバルゴー · All rights reserved.">© 2026 株式会社グローバルゴー <span>/ GlobalGo, Inc. · All rights reserved.</span></div>
       <div class="ft-addr">Brand Guidelines v2.0 · April 2026</div>
     </div>
   </div>
 </footer>
 
 <script>
-  // Loader
+  // ── Loader
   const loader = document.getElementById('loader');
   loader.classList.add('loading');
   window.addEventListener('load', () => {
@@ -993,51 +900,63 @@
     }, 800);
   });
 
-  // Nav: transparent on dark hero, light when scrolled
+  // ── Nav scroll
   const nav = document.getElementById('nav');
   const heroEl = document.querySelector('.hero');
-  function updateNav() {
-    const heroBottom = heroEl.getBoundingClientRect().bottom;
-    nav.classList.toggle('light', heroBottom < 80);
-  }
+  function updateNav() { nav.classList.toggle('light', heroEl.getBoundingClientRect().bottom < 80); }
   window.addEventListener('scroll', updateNav, { passive: true });
   updateNav();
 
-  // Scroll reveal
+  // ── Language toggle
+  const toggle = document.getElementById('langToggle');
+
+  function applyLang(lang) {
+    const isEn = lang === 'en';
+    document.body.classList.toggle('en-mode', isEn);
+    document.getElementById('html-root').lang = isEn ? 'en' : 'ja';
+
+    // Swap text for all [data-jp][data-en] elements
+    document.querySelectorAll('[data-jp][data-en]').forEach(el => {
+      el.innerHTML = isEn ? el.dataset.en : el.dataset.jp;
+    });
+
+    localStorage.setItem('gg-lang', lang);
+  }
+
+  toggle.addEventListener('click', () => {
+    applyLang(document.body.classList.contains('en-mode') ? 'jp' : 'en');
+  });
+
+  // Restore saved preference
+  const saved = localStorage.getItem('gg-lang');
+  if (saved === 'en') applyLang('en');
+
+  // ── Scroll reveal
   const ro = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
   document.querySelectorAll('.rev').forEach(el => ro.observe(el));
 
-  // Service accordion + image panel
-  const svcItems = document.querySelectorAll('.svc-item');
-  svcItems.forEach(item => {
+  // ── Service accordion + image panel
+  document.querySelectorAll('.svc-item').forEach(item => {
     item.querySelector('.svc-row').addEventListener('click', () => {
       const isOpen = item.classList.contains('open');
-      // close all
-      svcItems.forEach(i => {
+      document.querySelectorAll('.svc-item').forEach(i => {
         i.classList.remove('open');
         i.querySelector('.svc-plus').textContent = '+';
-        // hide all images
-        const imgId = i.dataset.img;
-        if (imgId) {
-          const img = document.getElementById(imgId);
-          if (img) img.classList.remove('active');
-        }
+        const img = document.getElementById(i.dataset.img);
+        if (img) img.classList.remove('active');
       });
       if (!isOpen) {
         item.classList.add('open');
         item.querySelector('.svc-plus').textContent = '−';
-        const imgId = item.dataset.img;
-        if (imgId) {
-          const img = document.getElementById(imgId);
-          if (img) img.classList.add('active');
-        }
+        const img = document.getElementById(item.dataset.img);
+        if (img) img.classList.add('active');
       }
     });
   });
 
-  // Smooth scroll
+  // ── Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
@@ -1045,11 +964,12 @@
     });
   });
 
-  // Form
+  // ── Form submit
   document.querySelector('form').addEventListener('submit', e => {
     e.preventDefault();
     const btn = document.querySelector('.fsub');
-    btn.textContent = '✓ 送信完了 — Thank you!';
+    const isEn = document.body.classList.contains('en-mode');
+    btn.textContent = isEn ? '✓ Sent — Thank you!' : '✓ 送信完了 — ありがとうございます';
     btn.style.background = 'var(--charcoal)';
     btn.disabled = true;
   });
