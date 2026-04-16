@@ -360,6 +360,36 @@
     body.en-mode .p-body-jp  { font-size: 11.5px !important; color: rgba(255,255,255,0.28) !important; }
     body.en-mode .p-body-en  { font-size: 13px !important; color: rgba(255,255,255,0.45) !important; }
 
+    /* ══ CORP PROFILE TABLE ══ */
+    .corp-wrap { background: var(--charcoal); border-top: 1px solid rgba(255,255,255,0.06); padding: 72px 0 88px; }
+    .corp-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 40px; }
+    .corp-head-jp { font-family: var(--jp); font-weight: 700; font-size: 11px; letter-spacing: 0.18em; color: rgba(255,255,255,0.28); }
+    .corp-head-sep { font-family: var(--en); font-size: 10px; color: rgba(255,255,255,0.12); }
+    .corp-head-en { font-family: var(--en); font-weight: 400; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.15); }
+    .corp-tbl { width: 100%; }
+    .ct-row { display: grid; grid-template-columns: 148px 1fr; border-top: 1px solid rgba(255,255,255,0.055); padding: 15px 0; align-items: baseline; }
+    .ct-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.055); }
+    .ct-row dt { font-family: var(--jp); font-size: 10.5px; font-weight: 400; letter-spacing: 0.07em; color: rgba(255,255,255,0.25); padding-right: 24px; padding-top: 1px; }
+    .ct-row dd { font-family: var(--jp); font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.68); line-height: 1.75; }
+    .ct-sub { display: block; font-family: var(--en); font-size: 10.5px; color: rgba(255,255,255,0.22); margin-top: 2px; letter-spacing: 0.02em; }
+    .ct-biz { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .ct-biz li { display: flex; gap: 9px; padding: 4px 0; font-family: var(--jp); font-size: 12.5px; color: rgba(255,255,255,0.68); line-height: 1.65; }
+    .ct-biz li .bn { font-family: var(--en); font-size: 9px; font-weight: 700; color: var(--red); opacity: 0.65; flex-shrink: 0; padding-top: 3px; letter-spacing: 0.04em; }
+    .ct-biz li .ben { display: none; font-family: var(--en); font-size: 11.5px; color: rgba(255,255,255,0.68); }
+    .ct-link { color: rgba(255,255,255,0.38); text-decoration: none; font-family: var(--en); font-size: 12px; letter-spacing: 0.02em; transition: color 0.15s; }
+    .ct-link:hover { color: var(--white); }
+    /* EN mode: corp table */
+    body.en-mode .ct-row dt { color: rgba(255,255,255,0.18); }
+    body.en-mode .ct-row dd { color: rgba(255,255,255,0.6); }
+    body.en-mode .ct-sub { color: rgba(255,255,255,0.35); }
+    body.en-mode .ct-biz li { color: rgba(255,255,255,0.25); }
+    body.en-mode .ct-biz li .ben { display: inline; }
+    body.en-mode .ct-biz li .bjp { display: none; }
+    @media (max-width: 640px) {
+      .ct-row { grid-template-columns: 112px 1fr; }
+      .ct-biz { grid-template-columns: 1fr; }
+    }
+
     /* ══ VALUES ══ */
     .values { background: var(--cream); padding: 112px 0; }
     .val-grid { display: grid; grid-template-columns: repeat(4,1fr); border-left: 1px solid var(--line); margin-top: 56px; }
@@ -739,6 +769,65 @@
           <div class="p-body-en">Earned through precision, bilingual delivery, and a relentless bias toward action.</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- 会社概要 FACT TABLE -->
+  <div class="corp-wrap">
+    <div class="sw">
+      <div class="corp-head">
+        <span class="corp-head-jp">会社概要</span>
+        <span class="corp-head-sep">/</span>
+        <span class="corp-head-en">Company Profile</span>
+      </div>
+      <dl class="corp-tbl">
+        <div class="ct-row">
+          <dt data-jp="社名" data-en="Company">社名</dt>
+          <dd>株式会社グローバルゴー<span class="ct-sub">GlobalGo, Inc.</span></dd>
+        </div>
+        <div class="ct-row">
+          <dt data-jp="所在地" data-en="Address">所在地</dt>
+          <dd>〒830-0013 福岡県久留米市櫛原町122-1 １Ｆ<span class="ct-sub">122-1 Kushiharamachi, Kurume, Fukuoka 830-0013, Japan</span></dd>
+        </div>
+        <div class="ct-row">
+          <dt data-jp="創業" data-en="Founded">創業</dt>
+          <dd>2006年2月<span class="ct-sub">February 2006</span></dd>
+        </div>
+        <div class="ct-row">
+          <dt data-jp="設立" data-en="Incorporated">設立</dt>
+          <dd>2014年4月<span class="ct-sub">April 2014</span></dd>
+        </div>
+        <div class="ct-row">
+          <dt data-jp="代表取締役" data-en="CEO">代表取締役</dt>
+          <dd>カブリド 泰子<span class="ct-sub">Yasuko Carbullido</span></dd>
+        </div>
+        <div class="ct-row" style="align-items:start;">
+          <dt data-jp="事業内容" data-en="Business Lines" style="padding-top:5px;">事業内容</dt>
+          <dd>
+            <ul class="ct-biz">
+              <li><span class="bn">01</span><span class="bjp">eラーニングシステムの企画・開発・運用</span><span class="ben">e-Learning system planning, development &amp; operation</span></li>
+              <li><span class="bn">02</span><span class="bjp">語学学校の運営</span><span class="ben">Language school operations</span></li>
+              <li><span class="bn">03</span><span class="bjp">語学教材の製作・販売</span><span class="ben">Language teaching materials production &amp; sales</span></li>
+              <li><span class="bn">04</span><span class="bjp">海外留学の企画・手配代行</span><span class="ben">Study abroad planning &amp; arrangement</span></li>
+              <li><span class="bn">05</span><span class="bjp">海外留学生の受け入れ・国際交流</span><span class="ben">International student reception &amp; exchange</span></li>
+              <li><span class="bn">06</span><span class="bjp">外国語講師派遣</span><span class="ben">Foreign language instructor staffing</span></li>
+              <li><span class="bn">07</span><span class="bjp">翻訳</span><span class="ben">Translation services</span></li>
+            </ul>
+          </dd>
+        </div>
+        <div class="ct-row">
+          <dt data-jp="取引銀行" data-en="Bank">取引銀行</dt>
+          <dd>三井住友銀行<span class="ct-sub">Sumitomo Mitsui Banking Corporation</span></dd>
+        </div>
+        <div class="ct-row">
+          <dt data-jp="ウェブサイト" data-en="Website">ウェブサイト</dt>
+          <dd><a href="http://www.globalgo.co.jp" class="ct-link" target="_blank" rel="noopener">www.globalgo.co.jp</a></dd>
+        </div>
+        <div class="ct-row">
+          <dt data-jp="メール" data-en="Email">メール</dt>
+          <dd><a href="mailto:studyabroad@globalgo.co.jp" class="ct-link">studyabroad@globalgo.co.jp</a></dd>
+        </div>
+      </dl>
     </div>
   </div>
 </section>
