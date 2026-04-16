@@ -373,20 +373,22 @@
     .ct-row dd { font-family: var(--jp); font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.68); line-height: 1.75; }
     .ct-sub { display: block; font-family: var(--en); font-size: 10.5px; color: rgba(255,255,255,0.22); margin-top: 2px; letter-spacing: 0.02em; }
     .ct-biz { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-    .ct-biz li { display: flex; gap: 9px; padding: 4px 0; font-family: var(--jp); font-size: 12.5px; color: rgba(255,255,255,0.68); line-height: 1.65; }
-    .ct-biz li .bn { font-family: var(--en); font-size: 9px; font-weight: 700; color: var(--red); opacity: 0.65; flex-shrink: 0; padding-top: 3px; letter-spacing: 0.04em; }
-    .ct-biz li .ben { display: none; font-family: var(--en); font-size: 11.5px; color: rgba(255,255,255,0.68); }
+    .ct-biz li { display: flex; gap: 10px; padding: 5px 0; align-items: flex-start; }
+    .ct-biz li .bn { font-family: var(--en); font-size: 9px; font-weight: 700; color: var(--red); opacity: 0.65; flex-shrink: 0; padding-top: 4px; letter-spacing: 0.04em; }
+    .ct-biz-text { display: flex; flex-direction: column; gap: 1px; }
+    .ct-biz li .bjp { font-family: var(--jp); font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+    .ct-biz li .ben { font-family: var(--en); font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: 0.04em; line-height: 1.4; }
+    /* EN mode: swap biz line weights */
+    body.en-mode .ct-biz li .bjp { font-size: 10px; color: rgba(255,255,255,0.25); }
+    body.en-mode .ct-biz li .ben { font-size: 13px; color: rgba(255,255,255,0.7); letter-spacing: 0; }
     .ct-link { color: rgba(255,255,255,0.38); text-decoration: none; font-family: var(--en); font-size: 12px; letter-spacing: 0.02em; transition: color 0.15s; }
     .ct-link:hover { color: var(--white); }
     /* EN mode: corp table */
     body.en-mode .ct-row dt { color: rgba(255,255,255,0.18); }
     body.en-mode .ct-row dd { color: rgba(255,255,255,0.6); }
     body.en-mode .ct-sub { color: rgba(255,255,255,0.35); }
-    body.en-mode .ct-biz li { color: rgba(255,255,255,0.25); }
-    body.en-mode .ct-biz li .ben { display: inline; }
-    body.en-mode .ct-biz li .bjp { display: none; }
     @media (max-width: 640px) {
-      .ct-row { grid-template-columns: 112px 1fr; }
+      .ct-row { grid-template-columns: 108px 1fr; }
       .ct-biz { grid-template-columns: 1fr; }
     }
 
@@ -805,13 +807,11 @@
           <dt data-jp="事業内容" data-en="Business Lines" style="padding-top:5px;">事業内容</dt>
           <dd>
             <ul class="ct-biz">
-              <li><span class="bn">01</span><span class="bjp">eラーニングシステムの企画・開発・運用</span><span class="ben">e-Learning system planning, development &amp; operation</span></li>
-              <li><span class="bn">02</span><span class="bjp">語学学校の運営</span><span class="ben">Language school operations</span></li>
-              <li><span class="bn">03</span><span class="bjp">語学教材の製作・販売</span><span class="ben">Language teaching materials production &amp; sales</span></li>
-              <li><span class="bn">04</span><span class="bjp">海外留学の企画・手配代行</span><span class="ben">Study abroad planning &amp; arrangement</span></li>
-              <li><span class="bn">05</span><span class="bjp">海外留学生の受け入れ・国際交流</span><span class="ben">International student reception &amp; exchange</span></li>
-              <li><span class="bn">06</span><span class="bjp">外国語講師派遣</span><span class="ben">Foreign language instructor staffing</span></li>
-              <li><span class="bn">07</span><span class="bjp">翻訳</span><span class="ben">Translation services</span></li>
+              <li><span class="bn">01</span><span class="ct-biz-text"><span class="bjp">国際教育</span><span class="ben">International Education</span></span></li>
+              <li><span class="bn">02</span><span class="ct-biz-text"><span class="bjp">ビジネス開発</span><span class="ben">Business Development</span></span></li>
+              <li><span class="bn">03</span><span class="ct-biz-text"><span class="bjp">輸出入</span><span class="ben">Import / Export</span></span></li>
+              <li><span class="bn">04</span><span class="ct-biz-text"><span class="bjp">海外不動産</span><span class="ben">International Real Estate</span></span></li>
+              <li><span class="bn">05</span><span class="ct-biz-text"><span class="bjp">留学・海外就労</span><span class="ben">Study &amp; Work Abroad</span></span></li>
             </ul>
           </dd>
         </div>
