@@ -185,14 +185,19 @@
     .hero-body { font-family: var(--jp); font-size: 15.5px; line-height: 1.9; color: rgba(255,255,255,0.72); max-width: 520px; margin-bottom: 8px; }
     .hero-body-en { font-family: var(--en); font-size: 13px; color: rgba(255,255,255,0.38); margin-bottom: 44px; max-width: 480px; line-height: 1.7; }
     .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    @keyframes btn-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(196,26,26,0.55), 0 0 18px 2px rgba(196,26,26,0.18); }
+      50%       { box-shadow: 0 0 0 8px rgba(196,26,26,0), 0 0 32px 8px rgba(196,26,26,0.32); }
+    }
     .btn-prim {
       display: inline-flex; align-items: center; gap: 10px;
       font-family: var(--jp); font-weight: 700; font-size: 14px;
       background: var(--red); color: var(--white);
       padding: 15px 26px; border: 2px solid var(--red); border-radius: 2px;
-      transition: all 0.22s; cursor: pointer;
+      transition: background 0.22s, border-color 0.22s, transform 0.18s; cursor: pointer;
+      animation: btn-pulse 2.6s cubic-bezier(0.4,0,0.6,1) infinite;
     }
-    .btn-prim:hover { background: var(--red-dark); border-color: var(--red-dark); }
+    .btn-prim:hover { background: var(--red-dark); border-color: var(--red-dark); transform: translateY(-1px); animation-play-state: paused; box-shadow: 0 0 28px 6px rgba(196,26,26,0.45); }
     .btn-ghost-w {
       display: inline-flex; align-items: center; gap: 10px;
       font-family: var(--en); font-weight: 600; font-size: 13px; letter-spacing: 0.04em;
@@ -713,11 +718,12 @@
         </div>
       </div>
       <div class="svc-img-panel">
-        <img id="svc1" class="svc-img active" src="https://images.unsplash.com/photo-1591219233007-4ac041f8c2be?auto=format&fit=crop&w=760&q=80" alt="国際教育">
-        <img id="svc2" class="svc-img" src="https://images.unsplash.com/photo-1758518730178-6e237bc8b87d?auto=format&fit=crop&w=760&q=80" alt="ビジネス開発">
-        <img id="svc3" class="svc-img" src="https://images.unsplash.com/photo-1444090542259-0af8fa96557e?auto=format&fit=crop&w=760&q=80" alt="輸出入">
-        <img id="svc4" class="svc-img" src="https://images.unsplash.com/photo-1757359056339-22968344cce6?auto=format&fit=crop&w=760&q=80" alt="不動産">
-        <img id="svc5" class="svc-img" src="https://images.unsplash.com/photo-1550246391-0252069b83b4?auto=format&fit=crop&w=760&q=80" alt="留学・就労">
+        <img id="svc1" class="svc-img active" src="https://images.unsplash.com/photo-1602133187081-4874fdbd555c?auto=format&fit=crop&w=760&q=80" alt="国際教育">
+        <img id="svc2" class="svc-img" src="https://images.unsplash.com/photo-1758691737543-09a1b2b715fa?auto=format&fit=crop&w=760&q=80" alt="ビジネス開発">
+        <img id="svc3" class="svc-img" src="https://images.unsplash.com/photo-1589810264340-0ce27bfbf751?auto=format&fit=crop&w=760&q=80" alt="輸出入">
+        <!-- Earthship G2, Taos NM · Wikimedia Commons · CC BY-SA 3.0 · crobaugh -->
+        <img id="svc4" class="svc-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/G2_Global_model_Earthship_Taos_N.M..JPG/1280px-G2_Global_model_Earthship_Taos_N.M..JPG" alt="海外不動産">
+        <img id="svc5" class="svc-img" src="https://images.unsplash.com/photo-1638909374742-8c8364010106?auto=format&fit=crop&w=760&q=80" alt="留学・就労">
         <div class="svc-img-overlay"></div>
         <div class="svc-img-default"><img src="brand-assets/globalgo official logo.png" alt=""></div>
       </div>
