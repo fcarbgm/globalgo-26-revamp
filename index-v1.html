@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlobalGo, Inc. | Japan's Global Business Partner</title>
+  <meta name="description" content="The most trusted partner for businesses and individuals navigating the space between Japan and the world. International education, business development, import/export, real estate, and study abroad.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --red:        #C41A1A;
+      --red-dark:   #991414;
+      --red-light:  #E82525;
+      --red-pale:   #FFF0F0;
+      --void:       #080808;
+      --charcoal:   #1C1C1E;
+      --mid-gray:   #3A3A3C;
+      --warm-gray:  #8A8A8E;
+      --off-white:  #F5F5F0;
+      --white:      #FFFFFF;
+
+      --font-en: 'Inter', sans-serif;
+      --font-jp: 'Noto Sans JP', 'Inter', sans-serif;
+
+      --section-sm: 56px;
+      --section-md: 96px;
+      --section-lg: 112px;
+      --container:  1280px;
+      --content:    1100px;
+      --narrow:     640px;
+
+      --ease: all 0.25s ease;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html  { scroll-behavior: smooth; }
+    body  {
+      font-family: var(--font-en);
+      background: var(--white);
+      color: var(--charcoal);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    img   { max-width: 100%; display: block; }
+    a     { text-decoration: none; color: inherit; }
+    ul    { list-style: none; }
+    input, select, textarea, button { font-family: inherit; }
+
+    /* ===== LAYOUT HELPERS ===== */
+    .wrap         { max-width: var(--container); margin: 0 auto; padding: 0 40px; }
+    .wrap-content { max-width: var(--content);   margin: 0 auto; padding: 0 40px; }
+
+    /* ===== EYEBROW ===== */
+    .eyebrow {
+      display: block;
+      font-weight: 900;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+
+    /* ===== SECTION RULE ===== */
+    .rule {
+      width: 48px;
+      height: 3px;
+      background: var(--red);
+      margin-bottom: 24px;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.03em;
+      padding: 15px 26px;
+      border-radius: 3px;
+      border: 2px solid transparent;
+      transition: var(--ease);
+      cursor: pointer;
+      line-height: 1;
+    }
+    .btn-red   { background: var(--red);   color: var(--white); border-color: var(--red); }
+    .btn-red:hover { background: var(--red-dark); border-color: var(--red-dark); }
+    .btn-ghost { background: transparent; color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.22); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.55); color: var(--white); }
+    .btn-white { background: var(--white); color: var(--red); border-color: var(--white); }
+    .btn-white:hover { background: transparent; color: var(--white); }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.72s cubic-bezier(0.25,0.46,0.45,0.94),
+                  transform 0.72s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.18s; }
+    .d3 { transition-delay: 0.28s; }
+    .d4 { transition-delay: 0.38s; }
+
+
+    /* ══════════════════════════════════
+       NAVIGATION
+    ══════════════════════════════════ */
+    #nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      background: rgba(8,8,8,0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: box-shadow 0.3s ease;
+    }
+    .nav-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .nav-logo img { height: 38px; width: auto; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-weight: 600;
+      font-size: 12.5px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--red) !important;
+      color: var(--white) !important;
+      padding: 9px 18px !important;
+      border-radius: 3px;
+      font-weight: 700 !important;
+      font-size: 12.5px !important;
+      letter-spacing: 0.05em !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--red-dark) !important; }
+
+
+    /* ══════════════════════════════════
+       HERO
+    ══════════════════════════════════ */
+    .hero {
+      background: var(--void);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 70px;
+    }
+
+    /* Orbital ring decorations — echoes the logo globe motif */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .orb-1 { width: 640px;  height: 640px;  right: -140px; top: -80px;  border: 1px solid rgba(196,26,26,0.14); }
+    .orb-2 { width: 960px;  height: 960px;  right: -320px; top: -270px; border: 1px solid rgba(196,26,26,0.06); }
+    .orb-3 { width: 420px;  height: 420px;  right:   50px; top:   60px; border: 1px solid rgba(255,255,255,0.04); }
+    .orb-dot {
+      position: absolute;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--red);
+      right: 188px; top: 123px;
+      box-shadow: 0 0 18px rgba(196,26,26,0.6);
+    }
+
+    .hero-body-wrap {
+      position: relative;
+      z-index: 2;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: var(--section-lg) 40px;
+    }
+    .hero-label {
+      font-weight: 900;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 26px;
+    }
+    .hero-h1 {
+      font-weight: 900;
+      font-size: clamp(3rem, 7.5vw, 6.5rem);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      max-width: 840px;
+      margin-bottom: 10px;
+    }
+    .hero-h1 .red { color: var(--red); }
+    .hero-jp {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 2.4vw, 1.55rem);
+      color: rgba(255,255,255,0.32);
+      letter-spacing: 0.04em;
+      margin-bottom: 32px;
+    }
+    .hero-copy {
+      font-size: 17px;
+      line-height: 1.78;
+      color: rgba(255,255,255,0.58);
+      max-width: 540px;
+      margin-bottom: 48px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .hero-stats {
+      margin-top: 88px;
+      padding-top: 44px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      gap: 56px;
+      flex-wrap: wrap;
+    }
+    .stat-num {
+      font-weight: 900;
+      font-size: 2.4rem;
+      letter-spacing: -0.025em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+    .stat-num sup { color: var(--red); font-size: 1.2rem; }
+    .stat-label {
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+    }
+
+
+    /* ══════════════════════════════════
+       SERVICES
+    ══════════════════════════════════ */
+    .services {
+      background: var(--off-white);
+      padding: var(--section-lg) 0;
+    }
+    .section-hd {
+      margin-bottom: 60px;
+    }
+    .section-title {
+      font-weight: 900;
+      font-size: clamp(1.9rem, 3.8vw, 2.8rem);
+      letter-spacing: -0.02em;
+      color: var(--charcoal);
+      line-height: 1.1;
+    }
+    .section-sub {
+      font-size: 15.5px;
+      color: var(--warm-gray);
+      margin-top: 14px;
+      max-width: 520px;
+      line-height: 1.75;
+    }
+
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .svc-card {
+      background: var(--white);
+      padding: 40px 34px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .svc-card::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--red);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.32s ease;
+    }
+    .svc-card:hover { transform: translateY(-6px); box-shadow: 0 24px 56px rgba(0,0,0,0.08); }
+    .svc-card:hover::after { transform: scaleY(1); }
+
+    .svc-num {
+      font-weight: 900;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: var(--red);
+      margin-bottom: 22px;
+    }
+    .svc-title {
+      font-weight: 700;
+      font-size: 18.5px;
+      color: var(--charcoal);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .svc-title-jp {
+      font-family: var(--font-jp);
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--warm-gray);
+      margin-bottom: 18px;
+    }
+    .svc-desc {
+      font-size: 14px;
+      line-height: 1.78;
+      color: var(--mid-gray);
+    }
+    .svc-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 12.5px;
+      color: var(--red);
+      margin-top: 24px;
+      transition: gap 0.2s;
+    }
+    .svc-card:hover .svc-more { gap: 10px; }
+
+    /* 5-card: row of 3 + row of 2 centered */
+    .svc-grid-row2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      margin-top: 2px;
+    }
+
+
+    /* ══════════════════════════════════
+       ABOUT
+    ══════════════════════════════════ */
+    .about {
+      background: var(--charcoal);
+      padding: var(--section-lg) 0;
+      color: var(--white);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .about-h2 {
+      font-weight: 900;
+      font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+    .about-h2 em { font-style: normal; color: var(--red); }
+    .about-p {
+      font-size: 15.5px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 14px;
+    }
+    .about-p strong { color: var(--white); font-weight: 600; }
+    .about-p-jp {
+      font-family: var(--font-jp);
+      font-size: 13px;
+      color: rgba(255,255,255,0.32);
+      margin-top: 10px;
+    }
+
+    .pillars { margin-top: 4px; }
+    .pillar {
+      padding: 26px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .pillar:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pillar-tag {
+      font-weight: 900;
+      font-size: 9.5px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 9px;
+    }
+    .pillar-title {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--white);
+      line-height: 1.35;
+      margin-bottom: 7px;
+    }
+    .pillar-body {
+      font-size: 14px;
+      line-height: 1.72;
+      color: rgba(255,255,255,0.52);
+    }
+    .pillar-jp {
+      font-family: var(--font-jp);
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.28);
+      margin-top: 6px;
+    }
+
+
+    /* ══════════════════════════════════
+       VALUES
+    ══════════════════════════════════ */
+    .values {
+      background: var(--void);
+      padding: var(--section-md) 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .values .section-title { color: var(--white); }
+    .values .section-sub   { color: var(--warm-gray); }
+
+    .val-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      margin-top: 52px;
+      background: rgba(255,255,255,0.06);
+    }
+    .val-item {
+      background: var(--void);
+      padding: 40px 30px;
+      transition: background 0.22s;
+    }
+    .val-item:hover { background: #0d0d0d; }
+    .val-arrow {
+      font-weight: 900;
+      font-size: 22px;
+      color: var(--red);
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+    .val-title {
+      font-weight: 800;
+      font-size: 16.5px;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .val-jp {
+      font-family: var(--font-jp);
+      font-size: 12px;
+      color: rgba(255,255,255,0.28);
+    }
+
+
+    /* ══════════════════════════════════
+       CTA STRIP
+    ══════════════════════════════════ */
+    .cta-strip {
+      background: var(--red);
+      padding: 80px 0;
+    }
+    .cta-strip-inner {
+      max-width: var(--content);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .cta-h3 {
+      font-weight: 900;
+      font-size: clamp(1.55rem, 2.8vw, 2.3rem);
+      letter-spacing: -0.02em;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .cta-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.6;
+    }
+    .cta-sub-jp {
+      font-family: var(--font-jp);
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.48);
+      margin-top: 4px;
+    }
+
+
+    /* ══════════════════════════════════
+       CONTACT
+    ══════════════════════════════════ */
+    .contact {
+      background: var(--off-white);
+      padding: var(--section-lg) 0;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .detail-list { margin-top: 40px; }
+    .detail-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .detail-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      background: var(--red-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .detail-icon svg { width: 17px; height: 17px; stroke: var(--red); }
+    .detail-tag {
+      font-weight: 600;
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-bottom: 3px;
+    }
+    .detail-val {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--charcoal);
+    }
+
+    .form-box {
+      background: var(--white);
+      padding: 48px 44px;
+      border-radius: 3px;
+    }
+    .form-hd {
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: -0.01em;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+    }
+    .form-hd-jp {
+      font-family: var(--font-jp);
+      font-size: 12.5px;
+      color: var(--warm-gray);
+      margin-bottom: 30px;
+    }
+    .fg { margin-bottom: 18px; }
+    .fl {
+      display: block;
+      font-weight: 600;
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 7px;
+    }
+    .fi, .fs, .ft {
+      width: 100%;
+      padding: 11px 15px;
+      border: 1.5px solid #DEDEDE;
+      border-radius: 3px;
+      font-size: 14.5px;
+      color: var(--charcoal);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .fi:focus, .fs:focus, .ft:focus { border-color: var(--red); }
+    .fi::placeholder, .ft::placeholder { color: #C4C4C4; }
+    .ft { resize: vertical; min-height: 96px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-submit {
+      width: 100%;
+      background: var(--red);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 14.5px;
+      letter-spacing: 0.04em;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.22s;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .form-submit:hover { background: var(--red-dark); }
+    .form-note {
+      font-size: 11.5px;
+      color: var(--warm-gray);
+      margin-top: 12px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+
+    /* ══════════════════════════════════
+       FOOTER
+    ══════════════════════════════════ */
+    footer {
+      background: var(--void);
+      padding: 64px 0 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-logo img { height: 34px; width: auto; margin-bottom: 18px; }
+    .footer-tagline {
+      font-size: 12.5px;
+      line-height: 1.72;
+      color: rgba(255,255,255,0.38);
+      max-width: 240px;
+    }
+    .footer-tagline-jp {
+      font-family: var(--font-jp);
+      font-size: 11px;
+      color: rgba(255,255,255,0.22);
+      margin-top: 8px;
+    }
+    .footer-col-hd {
+      font-weight: 800;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 18px;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.38);
+      transition: color 0.18s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-links span { font-size: 12.5px; color: rgba(255,255,255,0.25); line-height: 1.65; }
+
+    .footer-bottom {
+      padding-top: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-copy {
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.22);
+    }
+    .footer-addr {
+      font-size: 11px;
+      color: rgba(255,255,255,0.22);
+      text-align: right;
+    }
+
+
+    /* ══════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════ */
+    @media (max-width: 1080px) {
+      .svc-grid { grid-template-columns: repeat(2, 1fr); }
+      .svc-grid-row2 { grid-template-columns: 1fr; }
+      .about-grid  { grid-template-columns: 1fr; gap: 56px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .val-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 720px) {
+      :root {
+        --section-sm: 44px;
+        --section-md: 68px;
+        --section-lg: 76px;
+      }
+      .wrap, .wrap-content { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero-body-wrap { padding: 72px 20px 72px; }
+      .hero-stats { gap: 28px; }
+      .orb-1, .orb-2, .orb-3, .orb-dot { display: none; }
+      .svc-grid, .svc-grid-row2 { grid-template-columns: 1fr; }
+      .val-grid { grid-template-columns: 1fr; }
+      .cta-strip-inner { flex-direction: column; text-align: center; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-addr { text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-box { padding: 28px 22px; }
+    }
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">
+      <img src="brand-assets/globalgo official logo.png" alt="GlobalGo, Inc.">
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="nav-cta">無料相談 →</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb-dot"></div>
+
+  <div class="hero-body-wrap">
+    <p class="hero-label">株式会社グローバルゴー · GlobalGo, Inc. · Est. 2014 · Fukuoka, Japan</p>
+
+    <h1 class="hero-h1">
+      Move. Build.<br>Grow. <span class="red">Globally.</span>
+    </h1>
+    <p class="hero-jp">世界と、ビジネスを。</p>
+    <p class="hero-copy">
+      The most trusted partner for businesses and individuals navigating the space between Japan and the world. Deep local expertise. Bilingual delivery. Results over process.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-red">無料相談を申し込む →</a>
+      <a href="#services" class="btn btn-ghost">View Our Services</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">10<sup>+</sup></div>
+        <div class="stat-label">Years Operating</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Service Disciplines</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Languages · By Default</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Relentless Focus</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ SERVICES ══ -->
+<section class="services" id="services">
+  <div class="wrap-content">
+    <div class="section-hd reveal">
+      <span class="eyebrow">Our Services · 事業内容</span>
+      <div class="rule"></div>
+      <h2 class="section-title">Five Areas.<br>Total Coverage.</h2>
+      <p class="section-sub">From education to enterprise, we cover every dimension of Japan's global interface — end to end, in both languages.</p>
+    </div>
+
+    <div class="svc-grid">
+      <div class="svc-card reveal d1">
+        <div class="svc-num">01</div>
+        <h3 class="svc-title">International Education</h3>
+        <p class="svc-title-jp">国際教育</p>
+        <p class="svc-desc">Connecting Japanese students and institutions with world-class educational opportunities abroad. Curriculum consultation, school placement, and ongoing support through every stage.</p>
+        <span class="svc-more">Learn more →</span>
+      </div>
+
+      <div class="svc-card reveal d2">
+        <div class="svc-num">02</div>
+        <h3 class="svc-title">International Business Development</h3>
+        <p class="svc-title-jp">国際ビジネス開発</p>
+        <p class="svc-desc">Market entry strategy, partnership development, and cross-border growth — for Japanese companies expanding globally and international firms entering Japan.</p>
+        <span class="svc-more">Learn more →</span>
+      </div>
+
+      <div class="svc-card reveal d3">
+        <div class="svc-num">03</div>
+        <h3 class="svc-title">Import / Export Consulting</h3>
+        <p class="svc-title-jp">輸出入コンサルティング</p>
+        <p class="svc-desc">End-to-end trade facilitation: compliance, documentation, logistics coordination, and supplier or buyer introductions across borders.</p>
+        <span class="svc-more">Learn more →</span>
+      </div>
+    </div>
+
+    <div class="svc-grid-row2">
+      <div class="svc-card reveal d1">
+        <div class="svc-num">04</div>
+        <h3 class="svc-title">International Real Estate</h3>
+        <p class="svc-title-jp">国際不動産</p>
+        <p class="svc-desc">Property acquisition, investment advisory, and relocation support for individuals and corporations operating across Japanese and international real estate markets.</p>
+        <span class="svc-more">Learn more →</span>
+      </div>
+
+      <div class="svc-card reveal d2">
+        <div class="svc-num">05</div>
+        <h3 class="svc-title">Study &amp; Work Abroad</h3>
+        <p class="svc-title-jp">留学・海外就労</p>
+        <p class="svc-desc">Visa support, program placement, and career pathway guidance for individuals pursuing study or professional opportunities outside Japan.</p>
+        <span class="svc-more">Learn more →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ABOUT ══ -->
+<section class="about" id="about">
+  <div class="wrap-content">
+    <div class="about-grid">
+
+      <div class="reveal">
+        <span class="eyebrow">About GlobalGo · 私たちについて</span>
+        <div class="rule"></div>
+        <h2 class="about-h2">We don't just advise.<br>We <em>act.</em></h2>
+        <p class="about-p">
+          GlobalGo — 株式会社グローバルゴー — is a Fukuoka-based international business and education firm founded in 2014. We operate across five disciplines, connecting Japan with the world through <strong>deep local expertise</strong> and bilingual delivery.
+        </p>
+        <p class="about-p">
+          We've built our reputation on one principle: <strong>results over process.</strong> Every engagement is defined by outcomes, not by hours billed or reports filed.
+        </p>
+        <p class="about-p-jp">
+          2014年設立。福岡県久留米市を拠点に、5つの分野で日本と世界をつなぐ国際ビジネス・教育企業です。
+        </p>
+      </div>
+
+      <div class="reveal d1">
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-tag">Mission · ミッション</div>
+            <div class="pillar-title">Make global opportunity accessible.</div>
+            <div class="pillar-body">Removing barriers of language, regulation, and distance for every client we serve.</div>
+            <div class="pillar-jp">言語・規制・距離の壁を取り除き、すべてのクライアントにグローバルな機会を届ける。</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-tag">Vision · ビジョン</div>
+            <div class="pillar-title">Operate globally with home-court confidence.</div>
+            <div class="pillar-body">A world where any Japanese company or individual can operate globally with the same confidence as they do at home.</div>
+            <div class="pillar-jp">すべての日本企業・個人が、国内と同じ自信をもってグローバルに活動できる世界。</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-tag">Brand Positioning</div>
+            <div class="pillar-title">"The most trusted partner between Japan and the world."</div>
+            <div class="pillar-body">We earn that trust through precision, bilingual communication, and a relentless bias toward action.</div>
+            <div class="pillar-jp">「日本と世界をつなぐ空間において、企業と個人が最も信頼するパートナー。」</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VALUES ══ -->
+<section class="values">
+  <div class="wrap-content">
+    <div class="reveal">
+      <span class="eyebrow">Our Values · バリュー</span>
+      <h2 class="section-title">How We Work.</h2>
+      <p class="section-sub">Four principles that define every engagement — no exceptions.</p>
+    </div>
+    <div class="val-grid">
+      <div class="val-item reveal d1">
+        <div class="val-arrow">→</div>
+        <div class="val-title">Precision over volume.</div>
+        <div class="val-jp">量より精度</div>
+      </div>
+      <div class="val-item reveal d2">
+        <div class="val-arrow">→</div>
+        <div class="val-title">Bilingual by default.</div>
+        <div class="val-jp">バイリンガルが標準</div>
+      </div>
+      <div class="val-item reveal d3">
+        <div class="val-arrow">→</div>
+        <div class="val-title">Action over advice.</div>
+        <div class="val-jp">アドバイスより行動</div>
+      </div>
+      <div class="val-item reveal d4">
+        <div class="val-arrow">→</div>
+        <div class="val-title">Earned trust, not assumed.</div>
+        <div class="val-jp">信頼は積み重ねるもの</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CTA STRIP ══ -->
+<div class="cta-strip">
+  <div class="cta-strip-inner">
+    <div class="reveal">
+      <h3 class="cta-h3">Ready to go global?</h3>
+      <p class="cta-sub">Book a free consultation. No fluff — just a direct conversation about your goals.</p>
+      <p class="cta-sub-jp">無料相談を今すぐ。目標について、直接お話しましょう。</p>
+    </div>
+    <a href="#contact" class="btn btn-white reveal d1">無料相談を申し込む →</a>
+  </div>
+</div>
+
+
+<!-- ══ CONTACT ══ -->
+<section class="contact" id="contact">
+  <div class="wrap-content">
+    <div class="contact-grid">
+
+      <div class="reveal">
+        <span class="eyebrow">Contact · お問い合わせ</span>
+        <div class="rule"></div>
+        <h2 class="section-title">Let's talk.</h2>
+        <p class="section-sub">Reach us directly or use the form. We respond in English and Japanese within one business day.</p>
+
+        <div class="detail-list">
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="detail-tag">Email</div>
+              <div class="detail-val">info@globalgo.co.jp</div>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <div class="detail-tag">Location</div>
+              <div class="detail-val">Kurume, Fukuoka, Japan<br><span style="font-size:13px;color:var(--warm-gray);font-weight:400;">福岡県久留米市</span></div>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="detail-tag">Website</div>
+              <div class="detail-val">globalgo.co.jp</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-box reveal d1">
+        <div class="form-hd">Get in touch.</div>
+        <div class="form-hd-jp">お問い合わせフォーム · 無料相談受付中</div>
+
+        <form>
+          <div class="form-row">
+            <div class="fg">
+              <label class="fl">お名前 / Name *</label>
+              <input class="fi" type="text" placeholder="田中 太郎 / Tanaka Taro" required>
+            </div>
+            <div class="fg">
+              <label class="fl">会社名 / Company</label>
+              <input class="fi" type="text" placeholder="Company name">
+            </div>
+          </div>
+          <div class="fg">
+            <label class="fl">Email *</label>
+            <input class="fi" type="email" placeholder="you@company.com" required>
+          </div>
+          <div class="fg">
+            <label class="fl">サービス / Service</label>
+            <select class="fs">
+              <option value="">Select a service / サービスを選択</option>
+              <option>International Education / 国際教育</option>
+              <option>International Business Development / 国際ビジネス開発</option>
+              <option>Import / Export Consulting / 輸出入コンサルティング</option>
+              <option>International Real Estate / 国際不動産</option>
+              <option>Study &amp; Work Abroad / 留学・海外就労</option>
+              <option>General Inquiry / その他のお問い合わせ</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl">メッセージ / Message</label>
+            <textarea class="ft" placeholder="Tell us about your goals... / ご要望をお聞かせください..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            Send Message · 送信する →
+          </button>
+          <p class="form-note">
+            We respond within 1 business day in your preferred language.<br>
+            1営業日以内に、ご希望の言語でご返信します。
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <img src="brand-assets/globalgo official logo.png" alt="GlobalGo, Inc.">
+        <p class="footer-tagline">The most trusted partner for businesses and individuals navigating the space between Japan and the world.</p>
+        <p class="footer-tagline-jp">日本と世界をつなぐ、最も信頼されるパートナー。</p>
+      </div>
+      <div>
+        <div class="footer-col-hd">Services</div>
+        <div class="footer-links">
+          <a href="#services">International Education</a>
+          <a href="#services">Business Development</a>
+          <a href="#services">Import / Export</a>
+          <a href="#services">Real Estate</a>
+          <a href="#services">Study &amp; Work Abroad</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-hd">Company</div>
+        <div class="footer-links">
+          <a href="#about">About Us</a>
+          <a href="#contact">Contact</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-hd">Contact</div>
+        <div class="footer-links">
+          <a href="mailto:info@globalgo.co.jp">info@globalgo.co.jp</a>
+          <a href="#">globalgo.co.jp</a>
+          <span>Kurume, Fukuoka<br>Japan · 福岡県久留米市</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 GlobalGo, Inc. / 株式会社グローバルゴー · All rights reserved.</div>
+      <div class="footer-addr">Brand Guidelines v2.0 · April 2026</div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Nav shadow on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 32
+      ? '0 4px 40px rgba(0,0,0,0.5)'
+      : 'none';
+  }, { passive: true });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Form submit (placeholder)
+  document.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault();
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = '✓ Sent! / 送信完了';
+    btn.style.background = '#1C1C1E';
+    btn.disabled = true;
+  });
+</script>
+</body>
+</html>
