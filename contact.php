@@ -1,14 +1,17 @@
 <?php
 /**
  * GlobalGo contact form handler (XServer)
- * Receives the form on https://globalgo.co.jp/ and emails it to info@globalgo.co.jp.
+ * Receives the form on https://globalgo.co.jp/ and emails it to the addresses in MAIL_TO.
  * A copy of every submission is also saved outside the web root as a backup.
  */
 
 declare(strict_types=1);
 
 // ───────── Settings ─────────
-const MAIL_TO        = 'info@globalgo.co.jp';
+const MAIL_TO        = [                              // each gets its own copy
+    'info@globalgo.co.jp',                             // → also forwarded to yaccocoa@gmail.com
+    'fcarb@i-erai.com',                                // General Manager
+];
 const MAIL_FROM      = 'info@globalgo.co.jp';          // must be an address on this domain
 const MAIL_FROM_NAME = 'GlobalGo Webサイト';
 const ALLOWED_HOSTS  = ['globalgo.co.jp', 'www.globalgo.co.jp'];
@@ -148,11 +151,15 @@ $headers  = implode("\r\n", [
     'X-Mailer: GlobalGo-ContactForm',
 ]);
 
-$sent = mb_send_mail(MAIL_TO, $subject, $body, $headers, '-f' . MAIL_FROM);
+$results = [];
+foreach (MAIL_TO as $to) {
+    $results[$to] = mb_send_mail($to, $subject, $body, $headers, '-f' . MAIL_FROM);
+}
+$sent = in_array(true, $results, true);   // success if at least one copy went out
 
 // Backup copy (kept outside public_html)
 $log = [
-    'time' => $date, 'sent' => $sent, 'name' => $name, 'company' => $company,
+    'time' => $date, 'sent' => $results, 'name' => $name, 'company' => $company,
     'email' => $email, 'service' => $serviceText, 'message' => $message, 'ip' => $ip,
 ];
 @file_put_contents(DATA_DIR . '/submissions.jsonl', json_encode($log, JSON_UNESCAPED_UNICODE) . "\n", FILE_APPEND | LOCK_EX);
