@@ -1,0 +1,35 @@
+
+# ===== GlobalGo additions (2026-11-08) =====
+# Always use https://globalgo.co.jp (send www. visitors to the main address)
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.globalgo\.co\.jp$ [NC]
+RewriteRule ^(.*)$ https://globalgo.co.jp/$1 [R=301,L]
+</IfModule>
+
+ErrorDocument 404 /404.html
+Options -Indexes
+
+# Security headers
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+
+# Browser caching
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType text/html "access plus 0 seconds"
+ExpiresByType image/jpeg "access plus 30 days"
+ExpiresByType image/png "access plus 30 days"
+ExpiresByType image/x-icon "access plus 30 days"
+ExpiresByType image/vnd.microsoft.icon "access plus 30 days"
+</IfModule>
+AddType application/manifest+json .webmanifest

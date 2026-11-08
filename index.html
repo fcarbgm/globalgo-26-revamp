@@ -5,6 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>株式会社グローバルゴー | 世界と、ビジネスを。</title>
   <meta name="description" content="日本と世界をつなぐ、最も信頼されるパートナー。国際教育・ビジネス開発・輸出入・不動産・留学就労。GlobalGo, Inc.">
+  <link rel="canonical" href="https://globalgo.co.jp/">
+  <meta name="theme-color" content="#080808">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Social sharing (LINE, Facebook, X, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="株式会社グローバルゴー / GlobalGo, Inc.">
+  <meta property="og:title" content="株式会社グローバルゴー | 世界と、ビジネスを。">
+  <meta property="og:description" content="日本と世界をつなぐ、最も信頼されるパートナー。国際教育・ビジネス開発・輸出入・国際不動産・留学/海外就労を日英バイリンガルでサポートします。">
+  <meta property="og:url" content="https://globalgo.co.jp/">
+  <meta property="og:image" content="https://globalgo.co.jp/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="GlobalGo — 世界と、ビジネスを。">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Structured data for search engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "株式会社グローバルゴー",
+    "alternateName": "GlobalGo, Inc.",
+    "url": "https://globalgo.co.jp/",
+    "logo": "https://globalgo.co.jp/icon-512.png",
+    "email": "info@globalgo.co.jp",
+    "foundingDate": "2014-04",
+    "address": {
+      "@type": "PostalAddress",
+      "postalCode": "830-0013",
+      "addressRegion": "福岡県",
+      "addressLocality": "久留米市",
+      "streetAddress": "櫛原町122-1 1F",
+      "addressCountry": "JP"
+    },
+    "areaServed": ["JP", "Worldwide"],
+    "knowsLanguage": ["ja", "en"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -73,6 +123,9 @@
       height: 68px; display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo img { height: 34px; width: auto; }
+    .nav-logo .logo-pri { display: none; }
+    #nav.light .nav-logo .logo-pri { display: block; }
+    #nav.light .nav-logo .logo-rev { display: none; }
     .nav-right { display: flex; align-items: center; gap: 20px; }
     .nav-links { display: flex; align-items: center; gap: 24px; }
     .nav-links a {
@@ -464,24 +517,36 @@
     }
     .fsub:hover { background: var(--red); }
     .fnote { font-family: var(--jp); font-size: 11.5px; color: var(--gray); text-align: center; margin-top: 11px; line-height: 1.7; }
+    .fl em { font-style: normal; color: var(--red); margin-left: 2px; }
+    .fsub:disabled { cursor: default; opacity: 0.75; }
+    .fsub:disabled:hover { background: var(--ink); }
+    .f-consent { display: flex; align-items: flex-start; gap: 10px; margin: 4px 0 16px; font-size: 12.5px; line-height: 1.7; color: var(--mid); cursor: pointer; }
+    .f-consent input { width: 16px; height: 16px; margin-top: 3px; accent-color: var(--red); flex-shrink: 0; cursor: pointer; }
+    .f-consent a { color: var(--red); text-decoration: underline; text-underline-offset: 2px; }
+    .f-hp { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; overflow: hidden; }
+    .f-status { display: none; margin-top: 14px; padding: 13px 16px; font-size: 13px; line-height: 1.75; border-left: 3px solid; }
+    .f-status.ok  { display: block; background: #F3F8F3; border-color: #2E7D32; color: #1B4D1F; }
+    .f-status.err { display: block; background: #FFF0F0; border-color: var(--red); color: var(--red-dark); }
+    .f-status a { text-decoration: underline; }
+    a:focus-visible, button:focus-visible, .svc-row:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 
     /* ══ FOOTER ══ */
     footer { background: var(--ink); padding: 64px 0 32px; }
     .ft-top { display: grid; grid-template-columns: 1.7fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.07); }
     .ft-logo img { height: 31px; margin-bottom: 18px; }
-    .ft-desc-jp { font-family: var(--jp); font-size: 12.5px; line-height: 1.8; color: rgba(255,255,255,0.35); max-width: 230px; }
-    .ft-desc-en { font-family: var(--en); font-size: 11px; color: rgba(255,255,255,0.18); margin-top: 7px; line-height: 1.7; max-width: 230px; }
-    body.en-mode .ft-desc-jp { font-size: 11px !important; color: rgba(255,255,255,0.18) !important; margin-top: 7px !important; }
-    body.en-mode .ft-desc-en { font-size: 12.5px !important; color: rgba(255,255,255,0.35) !important; margin-top: 0 !important; }
-    .ft-col-hd { font-family: var(--jp); font-weight: 700; font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 16px; }
+    .ft-desc-jp { font-family: var(--jp); font-size: 12.5px; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 230px; }
+    .ft-desc-en { font-family: var(--en); font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 7px; line-height: 1.7; max-width: 230px; }
+    body.en-mode .ft-desc-jp { font-size: 11px !important; color: rgba(255,255,255,0.45) !important; margin-top: 7px !important; }
+    body.en-mode .ft-desc-en { font-size: 12.5px !important; color: rgba(255,255,255,0.6) !important; margin-top: 0 !important; }
+    .ft-col-hd { font-family: var(--jp); font-weight: 700; font-size: 12px; color: rgba(255,255,255,0.75); margin-bottom: 16px; }
     .ft-links { display: flex; flex-direction: column; gap: 10px; }
-    .ft-links a   { font-family: var(--jp); font-size: 13px; color: rgba(255,255,255,0.32); transition: color 0.18s; }
+    .ft-links a   { font-family: var(--jp); font-size: 13px; color: rgba(255,255,255,0.62); transition: color 0.18s; }
     .ft-links a:hover { color: var(--white); }
-    .ft-links span { font-size: 12px; color: rgba(255,255,255,0.2); line-height: 1.75; }
+    .ft-links span { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.75; }
     .ft-bottom { padding-top: 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .ft-copy { font-family: var(--jp); font-size: 11px; color: rgba(255,255,255,0.2); }
+    .ft-copy { font-family: var(--jp); font-size: 11px; color: rgba(255,255,255,0.5); }
     .ft-copy span { font-family: var(--en); font-size: 10.5px; }
-    .ft-addr { font-family: var(--en); font-size: 10.5px; color: rgba(255,255,255,0.18); text-align: right; }
+    .ft-addr { font-family: var(--jp); font-size: 11px; color: rgba(255,255,255,0.5); text-align: right; }
 
     /* ══ REVEAL ══ */
     .rev { opacity: 0; transform: translateY(18px); transition: opacity 0.78s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.78s cubic-bezier(0.25,0.46,0.45,0.94); }
@@ -521,13 +586,14 @@
       .hero-actions .btn-prim, .hero-actions .btn-ghost-w { width: 100%; justify-content: center; }
     }
   </style>
+  <noscript><style>#loader { display: none !important; } .rev { opacity: 1 !important; transform: none !important; }</style></noscript>
 </head>
 <body>
 
 <!-- LOADER -->
 <div id="loader">
   <div class="loader-card">
-    <img src="brand-assets/globalgo official logo.png" alt="GlobalGo">
+    <img src="brand-assets/globalgo-logo.png" alt="GlobalGo">
     <div class="loader-bar"></div>
   </div>
 </div>
@@ -536,7 +602,8 @@
 <nav id="nav">
   <div class="nav-wrap">
     <a href="#home" class="nav-logo">
-      <img src="brand-assets/globalgo official logo.png" alt="株式会社グローバルゴー">
+      <img class="logo-rev" src="brand-assets/globalgo-logo-white.png" alt="株式会社グローバルゴー">
+      <img class="logo-pri" src="brand-assets/globalgo-logo.png" alt="" aria-hidden="true">
     </a>
     <div class="nav-right">
       <div class="nav-links">
@@ -558,7 +625,7 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1920&q=80" alt="Tokyo" loading="eager">
+    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1920&q=80" alt="東京の街並み / Tokyo skyline" loading="eager" fetchpriority="high" decoding="async">
   </div>
   <div class="hero-inner">
     <div class="hero-content">
@@ -637,7 +704,7 @@
     <div class="svc-panel">
       <div class="svc-list">
         <div class="svc-item open" data-img="svc1">
-          <div class="svc-row">
+          <div class="svc-row" role="button" tabindex="0" aria-expanded="true">
             <span class="svc-num">01</span>
             <div>
               <div class="svc-name-jp">国際教育</div>
@@ -653,7 +720,7 @@
           </div>
         </div>
         <div class="svc-item" data-img="svc2">
-          <div class="svc-row">
+          <div class="svc-row" role="button" tabindex="0" aria-expanded="false">
             <span class="svc-num">02</span>
             <div>
               <div class="svc-name-jp">国際ビジネス開発</div>
@@ -669,7 +736,7 @@
           </div>
         </div>
         <div class="svc-item" data-img="svc3">
-          <div class="svc-row">
+          <div class="svc-row" role="button" tabindex="0" aria-expanded="false">
             <span class="svc-num">03</span>
             <div>
               <div class="svc-name-jp">輸出入コンサルティング</div>
@@ -685,7 +752,7 @@
           </div>
         </div>
         <div class="svc-item" data-img="svc4">
-          <div class="svc-row">
+          <div class="svc-row" role="button" tabindex="0" aria-expanded="false">
             <span class="svc-num">04</span>
             <div>
               <div class="svc-name-jp">国際不動産</div>
@@ -701,7 +768,7 @@
           </div>
         </div>
         <div class="svc-item" data-img="svc5">
-          <div class="svc-row">
+          <div class="svc-row" role="button" tabindex="0" aria-expanded="false">
             <span class="svc-num">05</span>
             <div>
               <div class="svc-name-jp">留学・海外就労</div>
@@ -718,13 +785,13 @@
         </div>
       </div>
       <div class="svc-img-panel">
-        <img id="svc1" class="svc-img active" src="01.png" alt="国際教育">
-        <img id="svc2" class="svc-img" src="02.png" alt="ビジネス開発">
-        <img id="svc3" class="svc-img" src="03.png" alt="輸出入">
-        <img id="svc4" class="svc-img" src="04.png" alt="不動産">
-        <img id="svc5" class="svc-img" src="05.png" alt="留学・就労">
+        <img id="svc1" class="svc-img active" src="01.jpg" loading="lazy" decoding="async" alt="国際教育">
+        <img id="svc2" class="svc-img" src="02.jpg" loading="lazy" decoding="async" alt="ビジネス開発">
+        <img id="svc3" class="svc-img" src="03.jpg" loading="lazy" decoding="async" alt="輸出入">
+        <img id="svc4" class="svc-img" src="04.jpg" loading="lazy" decoding="async" alt="不動産">
+        <img id="svc5" class="svc-img" src="05.jpg" loading="lazy" decoding="async" alt="留学・就労">
         <div class="svc-img-overlay"></div>
-        <div class="svc-img-default"><img src="brand-assets/globalgo official logo.png" alt=""></div>
+        <div class="svc-img-default"><img src="brand-assets/globalgo-logo.png" alt=""></div>
       </div>
     </div>
   </div>
@@ -734,7 +801,7 @@
 <section class="about" id="about">
   <div class="about-grid">
     <div class="about-img-col">
-      <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=900&q=80" alt="Tokyo business district">
+      <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=900&q=80" alt="東京のビジネス街 / Tokyo business district" loading="lazy" decoding="async">
     </div>
     <div class="about-text-col rev">
       <div class="about-ghost" aria-hidden="true">GO</div>
@@ -826,7 +893,7 @@
         </div>
         <div class="ct-row">
           <dt data-jp="ウェブサイト" data-en="Website">ウェブサイト</dt>
-          <dd><a href="http://www.globalgo.co.jp" class="ct-link" target="_blank" rel="noopener">www.globalgo.co.jp</a></dd>
+          <dd><a href="https://globalgo.co.jp/" class="ct-link">globalgo.co.jp</a></dd>
         </div>
         <div class="ct-row">
           <dt data-jp="メール" data-en="Email">メール</dt>
@@ -860,7 +927,7 @@
 
 <!-- IMAGE STRIP -->
 <div class="img-strip">
-  <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80" alt="Global reach">
+  <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80" alt="世界へ飛び立つ航空機 / Global reach" loading="lazy" decoding="async">
   <div class="img-strip-overlay">
     <div class="strip-text rev">
       <p class="strip-jp">グローバルへの一歩を、<br>今すぐ。<span>一緒に。</span></p>
@@ -886,7 +953,7 @@
         <div class="cdet">
           <div class="cdet-item">
             <div class="cdet-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-            <div><div class="cdet-lbl">Email</div><div class="cdet-val">info@globalgo.co.jp</div></div>
+            <div><div class="cdet-lbl">Email</div><div class="cdet-val"><a href="mailto:info@globalgo.co.jp">info@globalgo.co.jp</a></div></div>
           </div>
           <div class="cdet-item">
             <div class="cdet-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -901,38 +968,49 @@
       <div class="form-box rev d1">
         <div class="form-hd-jp">お問い合わせフォーム</div>
         <div class="form-hd-en">Contact Form · Free Consultation Available</div>
-        <form>
+        <form id="contactForm" action="/contact.php" method="post" novalidate>
           <div class="frow2">
             <div class="fg">
-              <label class="fl">お名前<span>/ Name *</span></label>
-              <input class="fi" type="text" placeholder="田中 太郎" required>
+              <label class="fl" for="cf-name">お名前<em>*</em><span>/ Name</span></label>
+              <input class="fi" id="cf-name" name="name" type="text" placeholder="田中 太郎" autocomplete="name" maxlength="100" required>
             </div>
             <div class="fg">
-              <label class="fl">会社名<span>/ Company</span></label>
-              <input class="fi" type="text" placeholder="会社名">
+              <label class="fl" for="cf-company">会社名<span>/ Company</span></label>
+              <input class="fi" id="cf-company" name="company" type="text" placeholder="会社名 / Company" autocomplete="organization" maxlength="150">
             </div>
           </div>
           <div class="fg">
-            <label class="fl">メールアドレス<span>/ Email *</span></label>
-            <input class="fi" type="email" placeholder="you@company.com" required>
+            <label class="fl" for="cf-email">メールアドレス<em>*</em><span>/ Email</span></label>
+            <input class="fi" id="cf-email" name="email" type="email" placeholder="you@company.com" autocomplete="email" maxlength="254" required>
           </div>
           <div class="fg">
-            <label class="fl">ご希望のサービス<span>/ Service</span></label>
-            <select class="fs">
+            <label class="fl" for="cf-service">ご希望のサービス<span>/ Service</span></label>
+            <select class="fs" id="cf-service" name="service">
               <option value="" data-jp="選択してください / Please select" data-en="Please select / 選択してください">選択してください / Please select</option>
-              <option data-jp="国際教育 / International Education" data-en="International Education / 国際教育">国際教育 / International Education</option>
-              <option data-jp="国際ビジネス開発 / Business Development" data-en="Business Development / 国際ビジネス開発">国際ビジネス開発 / Business Development</option>
-              <option data-jp="輸出入コンサルティング / Import &amp; Export" data-en="Import &amp; Export / 輸出入コンサルティング">輸出入コンサルティング / Import &amp; Export</option>
-              <option data-jp="国際不動産 / International Real Estate" data-en="International Real Estate / 国際不動産">国際不動産 / International Real Estate</option>
-              <option data-jp="留学・海外就労 / Study &amp; Work Abroad" data-en="Study &amp; Work Abroad / 留学・海外就労">留学・海外就労 / Study &amp; Work Abroad</option>
-              <option data-jp="その他 / General Inquiry" data-en="General Inquiry / その他">その他 / General Inquiry</option>
+              <option value="education" data-jp="国際教育 / International Education" data-en="International Education / 国際教育">国際教育 / International Education</option>
+              <option value="business" data-jp="国際ビジネス開発 / Business Development" data-en="Business Development / 国際ビジネス開発">国際ビジネス開発 / Business Development</option>
+              <option value="trade" data-jp="輸出入コンサルティング / Import &amp; Export" data-en="Import &amp; Export / 輸出入コンサルティング">輸出入コンサルティング / Import &amp; Export</option>
+              <option value="realestate" data-jp="国際不動産 / International Real Estate" data-en="International Real Estate / 国際不動産">国際不動産 / International Real Estate</option>
+              <option value="abroad" data-jp="留学・海外就労 / Study &amp; Work Abroad" data-en="Study &amp; Work Abroad / 留学・海外就労">留学・海外就労 / Study &amp; Work Abroad</option>
+              <option value="other" data-jp="その他 / General Inquiry" data-en="General Inquiry / その他">その他 / General Inquiry</option>
             </select>
           </div>
           <div class="fg">
-            <label class="fl">メッセージ<span>/ Message</span></label>
-            <textarea class="ft" placeholder="ご要望・ご質問をお聞かせください。 / Tell us about your goals..."></textarea>
+            <label class="fl" for="cf-message">メッセージ<em>*</em><span>/ Message</span></label>
+            <textarea class="ft" id="cf-message" name="message" rows="5" maxlength="5000" placeholder="ご要望・ご質問をお聞かせください。 / Tell us about your goals..." required></textarea>
           </div>
+          <!-- Spam traps: hidden from people, filled in by bots -->
+          <div class="f-hp" aria-hidden="true">
+            <label for="cf-website">Website</label>
+            <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <input type="hidden" name="t" id="cf-t" value="">
+          <label class="f-consent" for="cf-consent">
+            <input type="checkbox" id="cf-consent" name="consent" value="1" required>
+            <span data-jp="&lt;a href=&quot;/privacy.html&quot; target=&quot;_blank&quot;&gt;プライバシーポリシー&lt;/a&gt;に同意して送信します。 / I agree to the Privacy Policy." data-en="I agree to the &lt;a href=&quot;/privacy.html&quot; target=&quot;_blank&quot;&gt;Privacy Policy&lt;/a&gt;. / プライバシーポリシーに同意します。"><a href="/privacy.html" target="_blank">プライバシーポリシー</a>に同意して送信します。 / I agree to the Privacy Policy.</span>
+          </label>
           <button type="submit" class="fsub" data-jp="送信する / Send Message →" data-en="Send Message / 送信する →">送信する / Send Message →</button>
+          <div class="f-status" id="cf-status" role="status" aria-live="polite"></div>
           <p class="fnote" data-jp="1営業日以内に、ご希望の言語でご返信します。" data-en="We respond within 1 business day in your preferred language.">1営業日以内に、ご希望の言語でご返信します。</p>
         </form>
       </div>
@@ -945,7 +1023,7 @@
   <div class="sw">
     <div class="ft-top">
       <div class="ft-logo">
-        <img src="brand-assets/globalgo official logo.png" alt="株式会社グローバルゴー">
+        <img src="brand-assets/globalgo-logo-white.png" alt="株式会社グローバルゴー">
         <p class="ft-desc-jp">日本と世界をつなぐ、最も信頼されるパートナー。</p>
         <p class="ft-desc-en">The most trusted partner for businesses and individuals navigating the space between Japan and the world.</p>
       </div>
@@ -964,21 +1042,21 @@
         <div class="ft-links">
           <a href="#about"   data-jp="会社概要" data-en="About Us">会社概要</a>
           <a href="#contact" data-jp="お問い合わせ" data-en="Contact">お問い合わせ</a>
-          <a href="#"        data-jp="プライバシーポリシー" data-en="Privacy Policy">プライバシーポリシー</a>
+          <a href="/privacy.html" data-jp="プライバシーポリシー" data-en="Privacy Policy">プライバシーポリシー</a>
         </div>
       </div>
       <div>
         <div class="ft-col-hd" data-jp="連絡先" data-en="Contact">連絡先</div>
         <div class="ft-links">
           <a href="mailto:info@globalgo.co.jp">info@globalgo.co.jp</a>
-          <a href="#">globalgo.co.jp</a>
+          <a href="https://globalgo.co.jp/">globalgo.co.jp</a>
           <span data-jp="福岡県久留米市 / Kurume, Fukuoka" data-en="Kurume, Fukuoka, Japan / 福岡県久留米市">福岡県久留米市<br>Kurume, Fukuoka, Japan</span>
         </div>
       </div>
     </div>
     <div class="ft-bottom">
       <div class="ft-copy" data-jp="© 2026 株式会社グローバルゴー / GlobalGo, Inc. · All rights reserved." data-en="© 2026 GlobalGo, Inc. / 株式会社グローバルゴー · All rights reserved.">© 2026 株式会社グローバルゴー <span>/ GlobalGo, Inc. · All rights reserved.</span></div>
-      <div class="ft-addr">Brand Guidelines v2.0 · April 2026</div>
+      <div class="ft-addr">〒830-0013 福岡県久留米市櫛原町122-1 1F</div>
     </div>
   </div>
 </footer>
@@ -987,12 +1065,15 @@
   // ── Loader
   const loader = document.getElementById('loader');
   loader.classList.add('loading');
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      loader.classList.add('out');
-      setTimeout(() => loader.style.display = 'none', 950);
-    }, 800);
-  });
+  let loaderGone = false;
+  function hideLoader() {
+    if (loaderGone) return;
+    loaderGone = true;
+    loader.classList.add('out');
+    setTimeout(() => loader.style.display = 'none', 950);
+  }
+  window.addEventListener('load', () => setTimeout(hideLoader, 500));
+  setTimeout(hideLoader, 1800); // never hold the page back on slow mobile connections
 
   // ── Nav scroll
   const nav = document.getElementById('nav');
@@ -1014,7 +1095,8 @@
       el.innerHTML = isEn ? el.dataset.en : el.dataset.jp;
     });
 
-    localStorage.setItem('gg-lang', lang);
+    toggle.setAttribute('aria-label', isEn ? '日本語に切り替え' : 'Switch to English');
+    try { localStorage.setItem('gg-lang', lang); } catch (e) {}
   }
 
   toggle.addEventListener('click', () => {
@@ -1022,7 +1104,8 @@
   });
 
   // Restore saved preference
-  const saved = localStorage.getItem('gg-lang');
+  let saved = null;
+  try { saved = localStorage.getItem('gg-lang'); } catch (e) {}
   if (saved === 'en') applyLang('en');
 
   // ── Scroll reveal
@@ -1033,39 +1116,94 @@
 
   // ── Service accordion + image panel
   document.querySelectorAll('.svc-item').forEach(item => {
-    item.querySelector('.svc-row').addEventListener('click', () => {
+    const row = item.querySelector('.svc-row');
+    const toggleItem = () => {
       const isOpen = item.classList.contains('open');
       document.querySelectorAll('.svc-item').forEach(i => {
         i.classList.remove('open');
         i.querySelector('.svc-plus').textContent = '+';
+        i.querySelector('.svc-row').setAttribute('aria-expanded', 'false');
         const img = document.getElementById(i.dataset.img);
         if (img) img.classList.remove('active');
       });
       if (!isOpen) {
         item.classList.add('open');
         item.querySelector('.svc-plus').textContent = '−';
+        row.setAttribute('aria-expanded', 'true');
         const img = document.getElementById(item.dataset.img);
         if (img) img.classList.add('active');
       }
+    };
+    row.addEventListener('click', toggleItem);
+    row.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleItem(); }
     });
   });
 
-  // ── Smooth scroll
+  // ── Smooth scroll (in-page links only)
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-      const t = document.querySelector(a.getAttribute('href'));
+      const href = a.getAttribute('href');
+      if (href.length < 2) return;
+      const t = document.getElementById(href.slice(1));
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
 
-  // ── Form submit
-  document.querySelector('form').addEventListener('submit', e => {
+  // ── Contact form: sends to /contact.php, which emails info@globalgo.co.jp
+  const form = document.getElementById('contactForm');
+  const statusBox = document.getElementById('cf-status');
+  const submitBtn = form.querySelector('.fsub');
+  document.getElementById('cf-t').value = Math.floor(Date.now() / 1000);
+
+  const MSG = {
+    required: ['お名前・メールアドレス・メッセージをご入力ください。', 'Please fill in your name, email and message.'],
+    email:    ['メールアドレスの形式をご確認ください。', 'Please check your email address.'],
+    consent:  ['プライバシーポリシーへの同意が必要です。', 'Please agree to the Privacy Policy.'],
+    sending:  ['送信中…', 'Sending…'],
+    ok:       ['お問い合わせありがとうございます。内容を受け付けました。1営業日以内にご返信いたします。', 'Thank you — your message has been sent. We will reply within one business day.'],
+    fail:     ['送信できませんでした。お手数ですが、<a href="mailto:info@globalgo.co.jp">info@globalgo.co.jp</a> まで直接ご連絡ください。', 'Sorry, your message could not be sent. Please email us directly at <a href="mailto:info@globalgo.co.jp">info@globalgo.co.jp</a>.']
+  };
+  const t = key => {
+    const [jp, en] = MSG[key];
+    return document.body.classList.contains('en-mode') ? en + '<br>' + jp : jp + '<br>' + en;
+  };
+  const showStatus = (kind, key, extra) => {
+    statusBox.className = 'f-status ' + kind;
+    statusBox.innerHTML = extra ? extra : t(key);
+  };
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
-    const btn = document.querySelector('.fsub');
-    const isEn = document.body.classList.contains('en-mode');
-    btn.textContent = isEn ? '✓ Sent — Thank you!' : '✓ 送信完了 — ありがとうございます';
-    btn.style.background = 'var(--charcoal)';
-    btn.disabled = true;
+    const data = new FormData(form);
+    const name = (data.get('name') || '').trim();
+    const email = (data.get('email') || '').trim();
+    const message = (data.get('message') || '').trim();
+    if (!name || !email || !message) return showStatus('err', 'required');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showStatus('err', 'email');
+    if (!form.querySelector('#cf-consent').checked) return showStatus('err', 'consent');
+
+    const original = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = document.body.classList.contains('en-mode') ? MSG.sending[1] : MSG.sending[0];
+    statusBox.className = 'f-status';
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.ok) {
+        showStatus('ok', 'ok');
+        form.reset();
+        document.getElementById('cf-t').value = Math.floor(Date.now() / 1000);
+        submitBtn.innerHTML = document.body.classList.contains('en-mode') ? '✓ Sent' : '✓ 送信完了';
+        return;
+      }
+      if (json.error && MSG[json.error]) showStatus('err', json.error);
+      else showStatus('err', 'fail');
+    } catch (err) {
+      showStatus('err', 'fail');
+    }
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = original;
   });
 </script>
 </body>
