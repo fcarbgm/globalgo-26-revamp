@@ -43,10 +43,10 @@
     "foundingDate": "2014-04",
     "address": {
       "@type": "PostalAddress",
-      "postalCode": "830-0013",
+      "postalCode": "830-0003",
       "addressRegion": "福岡県",
       "addressLocality": "久留米市",
-      "streetAddress": "櫛原町122-1 1F",
+      "streetAddress": "東櫛原町2207-11",
       "addressCountry": "JP"
     },
     "areaServed": ["JP", "Worldwide"],
@@ -76,6 +76,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; backface-visibility: hidden; }
     html  { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
     body  { font-family: var(--jp); background: var(--cream); color: var(--ink); line-height: 1.7; overflow-x: hidden; }
+    /* Break Japanese lines between natural phrases (Chrome/Edge); other browsers ignore it */
+    .hero-body, .svc-intro, .svc-drop-jp, .about-p-jp, .p-body-jp, .contact-intro-jp, .ft-desc-jp, .fnote { word-break: auto-phrase; }
     a     { text-decoration: none; color: inherit; }
     img   { max-width: 100%; display: block; }
     ul    { list-style: none; }
@@ -296,6 +298,7 @@
       letter-spacing: -0.01em; line-height: 1.2; color: var(--ink);
       font-feature-settings: "palt";
     }
+    .s-title-jp.s-title-sm { font-size: clamp(1.6rem, 3vw, 2.3rem); }
     .s-title-en {
       font-family: var(--en); font-weight: 300; font-size: 1rem;
       letter-spacing: 0.12em; color: var(--gray);
@@ -636,7 +639,7 @@
       </div>
       <h1 class="hero-h1">世界と、<br>ビジネスを。</h1>
       <p class="hero-en-head">Move. Build. Grow. Globally.</p>
-      <p class="hero-body jp-show">日本と世界をつなぐ、最も信頼されるパートナー。<br>言語・規制・距離の壁を取り除き、すべてのクライアントにグローバルな機会を届ける。</p>
+      <p class="hero-body jp-show">日本と世界をつなぐ、最も信頼されるパートナー。<br>言語・規制・距離の壁を取り除き、<br>すべてのクライアントにグローバルな機会を届けます。</p>
       <p class="hero-body en-show">The most trusted partner for businesses and individuals navigating the space between Japan and the world. Removing barriers of language, regulation, and distance.</p>
       <p class="hero-body-en jp-show">The most trusted partner between Japan and the world.</p>
       <p class="hero-body-en en-show" style="font-family:var(--jp);color:rgba(255,255,255,0.38);font-size:13px;margin-bottom:44px;line-height:1.85;">日本と世界をつなぐ、最も信頼されるパートナー。</p>
@@ -690,7 +693,7 @@
           <span class="s-eyebrow-sep">/</span>
           <span class="s-eyebrow-en">Our Services</span>
         </div>
-        <div class="s-title-jp">五つの専門領域、<br>圧倒的なカバレッジ。</div>
+        <h2 class="s-title-jp s-title-sm">五つの専門領域、<br>圧倒的なカバレッジ。</h2>
         <div class="s-title-en">Five Areas. Total Coverage.</div>
       </div>
       <div>
@@ -861,7 +864,7 @@
         </div>
         <div class="ct-row">
           <dt data-jp="所在地" data-en="Address">所在地</dt>
-          <dd>〒830-0013 福岡県久留米市櫛原町122-1 １Ｆ<span class="ct-sub">122-1 Kushiharamachi, Kurume, Fukuoka 830-0013, Japan</span></dd>
+          <dd>〒830-0003 福岡県久留米市東櫛原町2207-11<span class="ct-sub">2207-11 Higashi-Kushiharamachi, Kurume, Fukuoka 830-0003, Japan</span></dd>
         </div>
         <div class="ct-row">
           <dt data-jp="創業" data-en="Founded">創業</dt>
@@ -913,7 +916,7 @@
         <span class="s-eyebrow-sep">/</span>
         <span class="s-eyebrow-en">Our Values</span>
       </div>
-      <div class="s-title-jp">行動指針。</div>
+      <h2 class="s-title-jp">行動指針。</h2>
       <div class="s-title-en">How We Work.</div>
     </div>
     <div class="val-grid">
@@ -946,7 +949,7 @@
           <span class="s-eyebrow-sep">/</span>
           <span class="s-eyebrow-en">Contact</span>
         </div>
-        <div class="s-title-jp">まず、話しましょう。</div>
+        <h2 class="s-title-jp">まず、話しましょう。</h2>
         <div class="s-title-en">Let's talk.</div>
         <p class="contact-intro-jp">フォームまたは直接ご連絡ください。日本語・英語どちらでも、1営業日以内にご返信いたします。</p>
         <p class="contact-intro-en">Reach us directly or use the form. We respond in English and Japanese within one business day.</p>
@@ -1056,7 +1059,7 @@
     </div>
     <div class="ft-bottom">
       <div class="ft-copy" data-jp="© 2026 株式会社グローバルゴー / GlobalGo, Inc. · All rights reserved." data-en="© 2026 GlobalGo, Inc. / 株式会社グローバルゴー · All rights reserved.">© 2026 株式会社グローバルゴー <span>/ GlobalGo, Inc. · All rights reserved.</span></div>
-      <div class="ft-addr">〒830-0013 福岡県久留米市櫛原町122-1 1F</div>
+      <div class="ft-addr">〒830-0003 福岡県久留米市東櫛原町2207-11</div>
     </div>
   </div>
 </footer>
